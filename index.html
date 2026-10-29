@@ -1,0 +1,2536 @@
+<!DOCTYPE html>
+<html lang="de"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hausglück · Dein Haushaltsplaner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   WEISS & ROSÉ · CLEAN GIRL AESTHETIC
+   Creme · Rosé · Champagner-Gold · Samt
+   ============================================================ */
+:root {
+  --bg: #fbf6f3;
+  --bg-soft: #f6ede9;
+  --panel: #ffffff;
+  --panel-2: #fdf3f1;
+  --border: rgba(197,158,160,.28);
+  --border-soft: rgba(197,158,160,.16);
+  --text: #4b3a3d;
+  --text-dim: #a78d90;
+  --accent: #e4a7ac;
+  --accent-2: #c97f8b;
+  --accent-soft: #f7e2e1;
+  --gold: #c9a66b;
+  --gold-soft: #ecdcb6;
+  --green: #9db89a;
+  --red: #d08a87;
+  --cream: #fbefe4;
+  --lilac: #cdb9d4;
+  --radius: 16px;
+  --radius-s: 10px;
+  --shadow: 0 18px 40px rgba(190,150,150,.16), 0 2px 8px rgba(190,150,150,.08);
+  --shadow-soft: 0 8px 22px rgba(190,150,150,.12);
+  --serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --sans: "Jost", "Segoe UI", -apple-system, Roboto, Helvetica, Arial, sans-serif;
+  --sidebar-w: 264px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body {
+  background:
+    radial-gradient(1100px 700px at 90% -10%, rgba(228,167,172,.14), transparent 60%),
+    radial-gradient(900px 800px at -10% 110%, rgba(201,166,107,.10), transparent 55%),
+    var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-weight: 400;
+  line-height: 1.65;
+  overflow-x: hidden;
+}
+h1, h2, h3, h4 { font-family: var(--serif); font-weight: 500; letter-spacing: .015em; color: var(--text); }
+button { font-family: inherit; cursor: pointer; }
+input, select, textarea { font-family: inherit; }
+.app { display: flex; min-height: 100vh; }
+
+/* ---------- Sidebar: cremeweiß & rosé ---------- */
+.sidebar {
+  width: var(--sidebar-w);
+  background:
+    radial-gradient(520px 260px at 20% 0%, rgba(228,167,172,.14), transparent 65%),
+    linear-gradient(168deg, #fffaf8 0%, var(--panel-2) 55%, #f8e9e6 100%);
+  border-right: 1px solid var(--border);
+  padding: 26px 18px;
+  position: fixed;
+  top: 0; bottom: 0; left: 0;
+  display: flex; flex-direction: column; gap: 5px;
+  z-index: 50;
+  box-shadow: 6px 0 24px rgba(190,150,150,.12);
+  overflow-y: auto;
+}
+.logo { display: flex; align-items: center; gap: 13px; padding: 2px 8px 20px; border-bottom: 1px solid var(--border-soft); margin-bottom: 14px; }
+.logo .cube {
+  width: 46px; height: 46px; border-radius: 50%;
+  background: radial-gradient(circle at 32% 26%, #fff, #f2cfd0 58%, #dfa8ad);
+  display: grid; place-items: center; font-family: var(--serif); font-size: 21px;
+  color: #a9636d; font-weight: 600;
+  border: 1px solid rgba(228,167,172,.55);
+  box-shadow: 0 0 0 3px rgba(228,167,172,.16), 0 8px 20px rgba(190,150,150,.28), inset 0 1px 1px rgba(255,255,255,.8);
+}
+.logo h1 { font-size: 19px; line-height: 1.2; color: var(--text); font-weight: 500; }
+.logo h1 span {
+  display: block; font-family: var(--sans); font-size: 9.5px; color: var(--accent-2);
+  font-weight: 500; letter-spacing: .22em; text-transform: uppercase; margin-top: 3px;
+}
+.nav-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 14px; border-radius: 12px;
+  color: var(--text-dim); cursor: pointer; user-select: none;
+  font-size: 12.5px; font-weight: 500; letter-spacing: .09em; text-transform: uppercase;
+  border: 1px solid transparent;
+  transition: all .18s ease;
+}
+.nav-item:hover { background: rgba(228,167,172,.14); color: var(--accent-2); }
+.nav-item.active {
+  background: linear-gradient(90deg, rgba(228,167,172,.30), rgba(228,167,172,.08));
+  color: var(--accent-2); border-color: rgba(228,167,172,.5);
+  box-shadow: inset 3px 0 0 var(--accent-2);
+}
+.nav-item .ico { width: 22px; display: grid; place-items: center; opacity: .9; }
+.nav-item .ico svg { width: 17px; height: 17px; }
+.sidebar-footer { margin-top: auto; padding: 16px 10px 4px; border-top: 1px solid var(--border-soft); }
+.level-chip { display: flex; align-items: center; gap: 11px; margin-bottom: 10px; cursor: pointer; border-radius: 12px; padding: 5px 6px; transition: all .18s ease; }
+.level-chip:hover { background: rgba(201,166,107,.12); }
+.level-chip .lvl {
+  width: 42px; height: 42px; border-radius: 50%; flex: none;
+  background: radial-gradient(circle at 32% 26%, #fbe4e2, #e7b3b6);
+  border: 1px solid rgba(228,167,172,.6);
+  box-shadow: 0 0 0 3px rgba(228,167,172,.16);
+  display: grid; place-items: center; font-family: var(--serif); font-weight: 600; color: #a9636d; font-size: 17px;
+}
+.level-chip .meta { font-size: 10.5px; color: var(--text-dim); line-height: 1.4; letter-spacing: .10em; text-transform: uppercase; }
+.level-chip .meta b { display: block; color: var(--text); font-size: 12.5px; letter-spacing: .06em; font-weight: 500; }
+.bar { height: 6px; background: rgba(228,167,172,.18); border-radius: 99px; overflow: hidden; border: 1px solid var(--border-soft); }
+.bar > i { display: block; height: 100%; background: linear-gradient(90deg, var(--accent), var(--gold-soft)); border-radius: 99px; transition: width .5s ease; }
+
+/* ---------- Main ---------- */
+.main { margin-left: var(--sidebar-w); flex: 1; padding: 34px 42px 90px; max-width: 1180px; }
+.topbar { display: flex; align-items: flex-end; justify-content: space-between; gap: 18px; margin-bottom: 26px; flex-wrap: wrap; }
+.topbar h2 { font-size: 33px; letter-spacing: .01em; line-height: 1.15; }
+.topbar p.sub { font-size: 13.5px; color: var(--text-dim); letter-spacing: .05em; margin-top: 5px; }
+.overline { font-family: var(--sans); font-size: 10px; letter-spacing: .28em; text-transform: uppercase; color: var(--accent-2); font-weight: 500; margin-bottom: 6px; }
+
+/* ---------- Karten & Raster ---------- */
+.card {
+  background: var(--panel);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  padding: 22px 24px;
+  box-shadow: var(--shadow-soft);
+  position: relative;
+}
+.card h3 { font-size: 21px; margin-bottom: 4px; }
+.card .desc { font-size: 13px; color: var(--text-dim); }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.section { margin-top: 30px; }
+.section-head { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-bottom: 14px; flex-wrap: wrap; }
+.section-head h3 { font-size: 23px; }
+
+/* ---------- Hero ---------- */
+.hero {
+  display: flex; align-items: center; gap: 26px;
+  background: linear-gradient(120deg, #fff 0%, var(--panel-2) 62%, #f9e6e2 100%);
+  border: 1px solid var(--border-soft);
+  border-radius: 22px;
+  padding: 28px 30px;
+  box-shadow: var(--shadow);
+  position: relative; overflow: hidden;
+}
+.hero::after {
+  content: ""; position: absolute; right: -60px; top: -60px; width: 220px; height: 220px;
+  background: radial-gradient(circle, rgba(228,167,172,.28), transparent 70%);
+}
+.hero .hero-txt { flex: 1; }
+.hero h2 { font-size: 30px; line-height: 1.2; margin-bottom: 6px; }
+.hero p { font-size: 14px; color: var(--text-dim); max-width: 560px; }
+.ring-wrap { position: relative; width: 110px; height: 110px; flex: none; }
+.ring-wrap .ring-txt { position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--serif); font-size: 22px; color: var(--accent-2); font-weight: 600; }
+
+/* ---------- Stats ---------- */
+.stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 18px; }
+.stat {
+  background: var(--panel); border: 1px solid var(--border-soft); border-radius: var(--radius);
+  padding: 16px 18px; box-shadow: var(--shadow-soft);
+}
+.stat .k { font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: var(--text-dim); }
+.stat .v { font-family: var(--serif); font-size: 30px; line-height: 1.15; color: var(--accent-2); font-weight: 600; }
+.stat .v small { font-family: var(--sans); font-size: 11px; color: var(--text-dim); letter-spacing: .08em; }
+
+/* ---------- Buttons & Formulare ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+  padding: 11px 22px; border-radius: 99px; border: 1px solid transparent;
+  font-family: var(--sans); font-size: 12px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase;
+  transition: all .18s ease; white-space: nowrap;
+}
+.btn.primary {
+  background: linear-gradient(120deg, var(--accent) 0%, var(--accent-2) 100%);
+  color: #fff; box-shadow: 0 10px 22px rgba(201,127,139,.35);
+}
+.btn.primary:hover { transform: translateY(-1px); box-shadow: 0 14px 28px rgba(201,127,139,.42); }
+.btn.ghost { background: transparent; color: var(--accent-2); border-color: var(--border); }
+.btn.ghost:hover { background: rgba(228,167,172,.14); }
+.btn.gold { background: linear-gradient(120deg, var(--gold-soft), var(--gold)); color: #6b5322; }
+.btn.green { background: linear-gradient(120deg, #b7cfb2, var(--green)); color: #3f5137; }
+.btn.danger { background: transparent; color: var(--red); border-color: rgba(208,138,135,.5); }
+.btn.small { padding: 8px 15px; font-size: 10.5px; letter-spacing: .10em; }
+.btn:disabled { opacity: .45; cursor: not-allowed; transform: none; }
+.btn-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+
+.input, .select, .textarea {
+  width: 100%; padding: 11px 15px; border-radius: 12px;
+  border: 1px solid var(--border); background: #fff; color: var(--text);
+  font-size: 13.5px; outline: none; transition: all .18s ease;
+}
+.input:focus, .select:focus, .textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(228,167,172,.18); }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+.form-row.one { grid-template-columns: 1fr; }
+.field label { display: block; font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 6px; }
+
+/* ---------- Tags & Notizen ---------- */
+.tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 10px; letter-spacing: .14em; text-transform: uppercase; font-weight: 500;
+  padding: 4px 11px; border-radius: 99px; background: var(--accent-soft); color: var(--accent-2);
+  border: 1px solid rgba(228,167,172,.35);
+}
+.tag.green { background: #e9f1e6; color: #6b8562; border-color: rgba(157,184,154,.4); }
+.tag.gold { background: var(--cream); color: #a8813d; border-color: rgba(201,166,107,.4); }
+.tag.grey { background: #f2ecec; color: var(--text-dim); border-color: var(--border-soft); }
+.tag.lilac { background: #f1eaf3; color: #8a6f95; border-color: rgba(205,185,212,.5); }
+.note {
+  background: var(--cream); border: 1px solid rgba(201,166,107,.3); border-radius: var(--radius-s);
+  padding: 13px 16px; font-size: 13px; color: #7a613a; display: flex; gap: 11px; align-items: flex-start;
+}
+.note .i { flex: none; font-size: 15px; }
+.tipbox {
+  background: linear-gradient(120deg, #fff7f5, var(--panel-2));
+  border: 1px solid var(--border-soft); border-left: 3px solid var(--accent);
+  border-radius: var(--radius-s); padding: 14px 17px; margin: 14px 0; font-size: 13.5px;
+}
+.tipbox .i { color: var(--accent-2); margin-right: 6px; }
+.empty { text-align: center; color: var(--text-dim); font-size: 13.5px; padding: 30px 16px; font-style: italic; font-family: var(--serif); font-size: 16px; }
+
+/* ---------- Check-Zeilen (Aufgaben) ---------- */
+.check-row {
+  display: flex; align-items: center; gap: 13px;
+  padding: 12px 15px; border-radius: 13px; border: 1px solid var(--border-soft);
+  background: var(--panel); margin-bottom: 9px; transition: all .18s ease;
+}
+.check-row:hover { border-color: var(--border); box-shadow: var(--shadow-soft); }
+.check-row.done { background: var(--panel-2); }
+.check-row.done .cr-title { text-decoration: line-through; color: var(--text-dim); }
+.check {
+  width: 22px; height: 22px; border-radius: 50%; flex: none; cursor: pointer;
+  border: 2px solid var(--accent); background: #fff;
+  display: grid; place-items: center; color: #fff; font-size: 12px; transition: all .18s ease;
+}
+.check:hover { transform: scale(1.08); }
+.check.on { background: linear-gradient(120deg, var(--accent), var(--accent-2)); border-color: var(--accent-2); }
+.cr-title { font-size: 14px; font-weight: 500; }
+.cr-meta { font-size: 11px; color: var(--text-dim); letter-spacing: .06em; }
+.cr-mid { flex: 1; min-width: 0; }
+.cr-right { display: flex; align-items: center; gap: 8px; flex: none; }
+.icon-btn {
+  width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--border-soft);
+  background: #fff; color: var(--text-dim); display: grid; place-items: center; font-size: 13px;
+  transition: all .18s ease;
+}
+.icon-btn:hover { color: var(--red); border-color: var(--red); }
+
+/* ---------- Wochenplan / Tag ---------- */
+.week-strip { display: flex; gap: 9px; flex-wrap: wrap; }
+.day-pill {
+  flex: 1; min-width: 96px; text-align: center; cursor: pointer;
+  border: 1px solid var(--border-soft); border-radius: 14px; padding: 12px 8px; background: var(--panel);
+  transition: all .18s ease;
+}
+.day-pill:hover { border-color: var(--accent); }
+.day-pill.today { background: linear-gradient(140deg, var(--accent) 0%, var(--accent-2) 100%); color: #fff; border-color: transparent; box-shadow: 0 10px 20px rgba(201,127,139,.3); }
+.day-pill.today .dp-day { color: rgba(255,255,255,.85); }
+.day-pill .dp-day { font-size: 9.5px; letter-spacing: .2em; text-transform: uppercase; color: var(--text-dim); }
+.day-pill .dp-num { font-family: var(--serif); font-size: 21px; font-weight: 600; }
+.day-pill .dp-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); display: inline-block; margin: 3px 1.5px 0; }
+.day-pill.today .dp-dot { background: #fff; }
+
+/* ---------- Kalender ---------- */
+.cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; }
+.cal-head { text-align: center; font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--text-dim); padding-bottom: 4px; }
+.cal-day {
+  min-height: 84px; border: 1px solid var(--border-soft); border-radius: 12px; padding: 8px 9px;
+  background: var(--panel); cursor: pointer; transition: all .18s ease; position: relative;
+}
+.cal-day:hover { border-color: var(--accent); box-shadow: var(--shadow-soft); }
+.cal-day.other { opacity: .38; }
+.cal-day.today { border-color: var(--accent-2); background: var(--panel-2); box-shadow: 0 0 0 2px rgba(228,167,172,.25); }
+.cal-day .cd-num { font-family: var(--serif); font-size: 15px; font-weight: 600; }
+.cal-day .cd-ev {
+  font-size: 9.5px; letter-spacing: .03em; border-radius: 6px; padding: 2px 6px; margin-top: 3px;
+  background: var(--accent-soft); color: var(--accent-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.cal-day .cd-ev.gold { background: var(--cream); color: #a8813d; }
+.cal-day .cd-ev.green { background: #e9f1e6; color: #6b8562; }
+
+/* ---------- Shop ---------- */
+.shop-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
+.shop-tab {
+  padding: 8px 18px; border-radius: 99px; border: 1px solid var(--border);
+  background: var(--panel); color: var(--text-dim); font-size: 11px; letter-spacing: .12em;
+  text-transform: uppercase; cursor: pointer; transition: all .18s ease;
+}
+.shop-tab.active { background: linear-gradient(120deg, var(--accent), var(--accent-2)); color: #fff; border-color: transparent; }
+.shop-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.item-card {
+  background: var(--panel); border: 1px solid var(--border-soft); border-radius: var(--radius);
+  padding: 18px; text-align: center; box-shadow: var(--shadow-soft); transition: all .18s ease;
+}
+.item-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); border-color: var(--border); }
+.item-art {
+  height: 116px; display: grid; place-items: center; margin-bottom: 12px;
+  background: linear-gradient(140deg, var(--panel-2), var(--cream)); border-radius: 12px;
+}
+.item-art svg { width: 116px; height: 82px; }
+.item-card h4 { font-size: 18px; margin-bottom: 3px; }
+.item-card .desc { font-size: 11.5px; color: var(--text-dim); min-height: 34px; }
+.price { display: inline-flex; align-items: center; gap: 6px; font-family: var(--serif); font-size: 17px; color: var(--gold); font-weight: 600; margin: 8px 0 10px; }
+
+/* ---------- Begleiter-Widget ---------- */
+#companionWidget {
+  position: fixed; right: 26px; bottom: 26px; z-index: 60;
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  cursor: grab; user-select: none; touch-action: none;
+}
+#companionWidget:active { cursor: grabbing; }
+.cw-bubble {
+  background: var(--panel); border: 1px solid var(--border); border-radius: 16px;
+  padding: 10px 15px; font-family: var(--serif); font-style: italic; font-size: 14.5px;
+  color: var(--text); box-shadow: var(--shadow-soft); max-width: 220px; text-align: center;
+  position: relative;
+}
+.cw-bubble::after {
+  content: ""; position: absolute; bottom: -7px; left: 50%; transform: translateX(-50%) rotate(45deg);
+  width: 12px; height: 12px; background: var(--panel); border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);
+}
+.cw-fig { width: 118px; filter: drop-shadow(0 12px 18px rgba(190,150,150,.3)); animation: cwFloat 4.2s ease-in-out infinite; }
+@keyframes cwFloat { 0%,100% { transform: translateY(0) rotate(-1deg); } 50% { transform: translateY(-8px) rotate(1.5deg); } }
+
+/* ---------- Modals & Toast ---------- */
+.modal-overlay {
+  position: fixed; inset: 0; background: rgba(75,58,61,.42); backdrop-filter: blur(6px);
+  display: flex; overflow-y: auto; -webkit-overflow-scrolling: touch;
+  z-index: 100; padding: 22px;
+  animation: fadeIn .22s ease;
+}
+.modal-overlay > * { margin: auto; }
+.modal-box {
+  background: var(--panel); border: 1px solid var(--border-soft); border-radius: 22px;
+  padding: 30px 32px; width: 100%; max-width: 560px; max-height: 88vh; overflow-y: auto;
+  box-shadow: 0 30px 70px rgba(120,80,85,.35); position: relative;
+  animation: popIn .26s cubic-bezier(.2,.9,.3,1.2);
+}
+.modal-box.wide { max-width: 760px; }
+.modal-box h3 { font-size: 25px; margin-bottom: 6px; }
+.modal-box .m-sub { font-size: 13px; color: var(--text-dim); margin-bottom: 18px; }
+.modal-close {
+  position: absolute; top: 16px; right: 16px; width: 34px; height: 34px; border-radius: 50%;
+  border: 1px solid var(--border-soft); background: #fff; color: var(--text-dim); font-size: 15px;
+  display: grid; place-items: center; transition: all .18s ease;
+}
+.modal-close:hover { color: var(--red); border-color: var(--red); transform: rotate(90deg); }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes popIn { from { opacity: 0; transform: translateY(18px) scale(.96); } to { opacity: 1; transform: none; } }
+
+#toast {
+  position: fixed; left: 50%; bottom: 34px; transform: translate(-50%, 26px);
+  background: var(--panel); color: var(--text); border: 1px solid var(--border);
+  padding: 13px 22px; border-radius: 99px; font-size: 13px; letter-spacing: .04em;
+  box-shadow: var(--shadow); opacity: 0; pointer-events: none; transition: all .32s cubic-bezier(.2,.9,.3,1.1);
+  z-index: 200; display: flex; align-items: center; gap: 10px; white-space: nowrap;
+}
+#toast.show { opacity: 1; transform: translate(-50%, 0); }
+#toast .xp { background: linear-gradient(120deg, var(--accent), var(--accent-2)); color: #fff; border-radius: 99px; padding: 3px 11px; font-size: 11px; letter-spacing: .1em; }
+#toast .st { background: linear-gradient(120deg, var(--gold-soft), var(--gold)); color: #6b5322; border-radius: 99px; padding: 3px 11px; font-size: 11px; letter-spacing: .1em; }
+
+/* ---------- Intro & Magie ---------- */
+.intro-overlay, .magic-overlay, .eat-overlay {
+  position: fixed; inset: 0; z-index: 150;
+  display: flex; flex-direction: column;
+  overflow-y: auto; -webkit-overflow-scrolling: touch;
+  background: radial-gradient(900px 640px at 50% 30%, #fff6f2, var(--bg-soft));
+  animation: fadeIn .5s ease; padding: 34px 22px; text-align: center;
+}
+.intro-overlay > *, .magic-overlay > *, .eat-overlay > * { margin: auto; }
+.magic-inner { max-width: 520px; }
+.magic-glow { position: relative; display: grid; place-items: center; margin: 10px auto 22px; }
+.magic-glow::before {
+  content: ""; position: absolute; width: 300px; height: 300px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(228,167,172,.4), transparent 68%);
+  animation: glowPulse 2.6s ease-in-out infinite;
+}
+@keyframes glowPulse { 0%,100% { transform: scale(.92); opacity: .55; } 50% { transform: scale(1.08); opacity: 1; } }
+.magic-glow svg { width: 220px; position: relative; z-index: 2; }
+.spark { position: absolute; font-size: 17px; color: var(--gold); animation: sparkFly 2.4s ease-in-out infinite; }
+@keyframes sparkFly { 0% { transform: translateY(0) scale(.6); opacity: 0; } 35% { opacity: 1; } 100% { transform: translateY(-46px) scale(1.15); opacity: 0; } }
+
+/* ---------- Ambiente ---------- */
+.amb { position: fixed; pointer-events: none; z-index: 0; opacity: .5; animation: ambFloat linear infinite; color: var(--accent); font-size: 12px; }
+@keyframes ambFloat {
+  0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+  12% { opacity: var(--o, .5); }
+  88% { opacity: var(--o, .5); }
+  100% { transform: translateY(-110vh) rotate(320deg); opacity: 0; }
+}
+
+/* ---------- Diverses ---------- */
+.breadcrumb { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 14px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.breadcrumb b { color: var(--accent-2); font-weight: 500; }
+.progress-ring-sm { width: 46px; height: 46px; flex: none; }
+.detail-box {
+  border: 1px dashed var(--border); border-radius: 12px; background: var(--panel-2);
+  padding: 14px 17px; margin-top: 10px; font-size: 13px;
+}
+.detail-box h5 { font-family: var(--serif); font-size: 15.5px; margin-bottom: 5px; color: var(--accent-2); }
+.detail-box ol, .detail-box ul { margin-left: 18px; }
+.detail-box li { margin-bottom: 4px; }
+.mini-stat { display: flex; align-items: center; gap: 9px; font-size: 12px; color: var(--text-dim); }
+.mini-stat b { color: var(--text); font-family: var(--serif); font-size: 17px; }
+.hr { height: 1px; background: var(--border-soft); margin: 18px 0; border: 0; }
+.avatar-pick { display: flex; gap: 8px; flex-wrap: wrap; }
+.avatar-opt {
+  width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--border); background: #fff;
+  display: grid; place-items: center; font-size: 18px; cursor: pointer; transition: all .18s ease;
+}
+.avatar-opt:hover { transform: scale(1.1); }
+.avatar-opt.sel { border-color: var(--accent-2); background: var(--accent-soft); box-shadow: 0 0 0 3px rgba(228,167,172,.25); }
+.cat-bar-wrap { margin-bottom: 12px; }
+.cat-bar-top { display: flex; justify-content: space-between; font-size: 11.5px; letter-spacing: .08em; margin-bottom: 5px; }
+.cat-bar-top b { font-family: var(--serif); font-size: 15px; }
+.day-dots { display: flex; gap: 5px; flex-wrap: wrap; }
+.day-dots i {
+  width: 9px; height: 9px; border-radius: 50%; background: rgba(228,167,172,.25); display: inline-block;
+}
+.day-dots i.on { background: linear-gradient(120deg, var(--accent), var(--accent-2)); }
+.sparkle-row { letter-spacing: .32em; color: var(--gold); font-size: 11px; text-align: center; margin: 10px 0; }
+
+/* ---------- Responsiv ---------- */
+.menu-btn { display: none; }
+@media (max-width: 1024px) {
+  .stats-row { grid-template-columns: repeat(2, 1fr); }
+  .shop-grid { grid-template-columns: repeat(2, 1fr); }
+  .grid-3 { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 780px) {
+  .sidebar { transform: translateX(-100%); transition: transform .25s ease; }
+  .sidebar.open { transform: none; }
+  .main { margin-left: 0; padding: 20px 18px 110px; }
+  .menu-btn {
+    display: grid; place-items: center; position: fixed; top: 16px; left: 16px; z-index: 70;
+    width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--border);
+    background: var(--panel); color: var(--accent-2); box-shadow: var(--shadow-soft); font-size: 17px;
+  }
+  .topbar { margin-top: 46px; }
+  .grid-2, .grid-3, .shop-grid, .form-row { grid-template-columns: 1fr; }
+  .hero { flex-direction: column; text-align: center; }
+  .cal-day { min-height: 58px; padding: 5px; }
+  .cal-day .cd-ev { display: none; }
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- ============ Sidebar ============ -->
+  <aside class="sidebar" id="sidebar">
+    <div class="logo">
+      <div class="cube">✿</div>
+      <h1>Hausglück<span>Planen · Pflegen · Glänzen</span></h1>
+    </div>
+
+    <div class="nav-item active" data-view="dashboard">
+      <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg></span>
+      Start
+    </div>
+    <div class="nav-item" data-view="kalender">
+      <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></span>
+      Kalender
+    </div>
+    <div class="nav-item" data-view="putzplan">
+      <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.2L18 9l-4.2 1.8L12 15l-1.8-4.2L6 9l4.2-1.8z"/><path d="M18.5 15l.9 2.1 2.1.9-2.1.9-.9 2.1-.9-2.1-2.1-.9 2.1-.9z"/><path d="M5 17l.7 1.6 1.6.7-1.6.7L5 21.6l-.7-1.6-1.6-.7 1.6-.7z"/></svg></span>
+      Putzplan
+    </div>
+    <div class="nav-item" data-view="aufgaben">
+      <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.5l2.5 2.5 4.5-5"/></svg></span>
+      To-Dos
+    </div>
+    <div class="nav-item" data-view="einkauf">
+      <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16l-1.5 12.5a2 2 0 01-2 1.5H7.5a2 2 0 01-2-1.5z"/><path d="M9 9V6a3 3 0 016 0v3"/></svg></span>
+      Einkauf
+    </div>
+    <div class="nav-item" data-view="essen">
+      <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M7 3v8a2 2 0 002 2v8"/><path d="M7 3v5M10 3v5"/><path d="M17 3c-1.5 1.5-2 3-2 5s.7 3 2 3v10"/></svg></span>
+      Essensplan
+    </div>
+    <div class="nav-item" data-view="budget">
+      <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="3" y="6" width="18" height="13" rx="3"/><path d="M3 10h18M16 14.5h2"/></svg></span>
+      Haushaltsgeld
+    </div>
+    <div class="nav-item" data-view="shop">
+      <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l1 12H4z"/><path d="M9 10V6a3 3 0 016 0v4"/></svg></span>
+      Boutique
+    </div>
+    <div class="nav-item" data-view="lexikon">
+      <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h11a3 3 0 013 3v13H8a3 3 0 01-3-3z"/><path d="M8 4v16M11 8h5M11 11.5h5"/></svg></span>
+      Hauslexikon
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="level-chip" onclick="showSettings()" title="Profil & Einstellungen">
+        <div class="lvl" id="sideLevel">I</div>
+        <div class="meta">
+          <b id="sideRank">Anfängerin</b>
+          <span id="sideXp">0 / 200 XP</span>
+          <div class="bar" style="margin-top:5px"><i id="sideXpBar" style="width:0%"></i></div>
+        </div>
+      </div>
+      <div style="font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--text-dim);padding:0 6px" id="sideUser">Gast · Hausglück</div>
+    </div>
+  </aside>
+
+  <!-- ============ Main ============ -->
+  <main class="main" id="main"></main>
+</div>
+
+<button class="menu-btn" onclick="toggleSidebar()">☰</button>
+
+<div id="toast"></div>
+
+<script>
+/* ============================================================
+   H A U S G L Ü C K  ·  Daten
+   ============================================================ */
+
+const LEVELS = [
+  { xp: 0,    name: "Anfängerin",       lvl: 1 },
+  { xp: 200,  name: "Aufräumerin" },
+  { xp: 500,  name: "Haushalts-Fee" },
+  { xp: 900,  name: "Putz-Profi" },
+  { xp: 1400, name: "Organisations-Talent" },
+  { xp: 2000, name: "Clean Girl" },
+  { xp: 2800, name: "Haus-Königin" },
+  { xp: 3800, name: "Perle des Hauses", lvl: 8 }
+];
+/* ============================================================
+   P U T Z P L A N  ·  Was · Wann · Wie
+   ============================================================ */
+
+const ZONES = [
+  { id: "kueche",   title: "Küche",            icon: "◆", color: "#e4a7ac", desc: "Kochen darf Spaß machen – solange die Küche danach wieder blitzt." },
+  { id: "bad",      title: "Bad",              icon: "❋", color: "#cdb9d4", desc: "Frisch, klar und kalkfrei – dein kleines Spa-Zuhause." },
+  { id: "wohnen",   title: "Wohnzimmer",       icon: "✿", color: "#c9a66b", desc: "Der Ort zum Ankommen – weich, sauber und gemütlich." },
+  { id: "schlafen", title: "Schlafzimmer",     icon: "☾", color: "#9db89a", desc: "Ein Bett wie aus dem Hotel – jeden Tag aufs Neue." },
+  { id: "flur",     title: "Flur & Außen",     icon: "✦", color: "#d08a87", desc: "Der erste Eindruck zählt – auch bei dir zuhause." }
+];
+
+const DAYS  = ["montag", "dienstag", "mittwoch", "donnerstag", "freitag", "samstag", "sonntag"];
+const DAY_LABEL = { montag: "Montag", dienstag: "Dienstag", mittwoch: "Mittwoch", donnerstag: "Donnerstag", freitag: "Freitag", samstag: "Samstag", sonntag: "Sonntag" };
+
+const PUTZ_TASKS = [
+  /* ---- Küche ---- */
+  { id: "p1", zone: "kueche", title: "Spüle & Arbeitsplatte", freq: "täglich", day: "täglich", time: "5 Min.",
+    how: "<p>Die Küche wird nach jedem Kochen kurz zurückgelassen – das ist das Geheimnis einer dauerhaft sauberen Küche.</p><ol><li>Alles von der Arbeitsplatte räumen, Geschirr einräumen.</li><li>Spüle mit warmem Wasser und Spülmittel auswischen, Armatur abtrocknen (keine Kalkflecken!).</li><li>Arbeitsplatte mit dem Feuchttuch abwischen, am Ende trocken polieren.</li><li>Handtuch wechseln, wenn es feucht ist.</li></ol>",
+    tip: "Ein Mikrofasertuch trocken nachpolieren lässt Edelstahl und Stein wie neu glänzen." },
+  { id: "p2", zone: "kueche", title: "Herd & Backofen", freq: "Wöchentlich", day: "freitag", time: "15 Min.",
+    how: "<p>Einmal die Woche gründlich – dann musst du nie wieder schrubben.</p><ol><li>Kochfeld abkühlen lassen, Platten herausnehmen.</li><li>Fettlösendes Reinigungsspray auftragen, 5 Minuten einwirken lassen.</li><li>Kochfeld, Knöpfe und Front mit dem Tuch abwischen.</li><li>Ofen: Krümel vom Boden wischen, bei Bedarf Ofenreiniger über Nacht einwirken lassen.</li></ol>",
+    tip: "Backpulver + Wasser zu einem Brei verrühren, auf Fettstellen streichen und über Nacht wirken lassen – ganz ohne Chemie." },
+  { id: "p3", zone: "kueche", title: "Kühlschrank auswischen", freq: "Wöchentlich", day: "samstag", time: "10 Min.",
+    how: "<p>Ein kühler Kopf braucht einen kühlen, sauberen Schrank.</p><ol><li>Abgelaufene Reste und alte Säfte entsorgen.</li><li>Fächer herausnehmen und mit warmem Spülwasser abwaschen.</li><li>Innenwände mit Essigwasser (1 EL Essig auf 500 ml) auswischen.</li><li>Glasboden von unten abtrocknen, Fächer einräumen.</li></ol>",
+    tip: "Ein geöffnetes Natron-Schälchen im Kühlschrank neutralisiert Gerüche für Wochen." },
+  { id: "p4", zone: "kueche", title: "Schränke & Fassaden", freq: "Monatlich", day: "monatlich", time: "20 Min.",
+    how: "<p>Was man von außen sieht, prägt das Gefühl von Ordnung.</p><ol><li>Schrankfronten und Griffe mit warmem Spülwasser abwischen.</li><li>Fettfilm über dem Herd mit Fettlöser entfernen.</li><li>Obere Kanten und den Kühlschrank-Dach abstauben.</li><li>Einen Schrank öffnen und kurz aussortieren – jeden Monat ein anderer.</li></ol>",
+    tip: "Die 1-Schrank-Regel: Jeden Monat nur ein Schrank – nach einem Jahr ist die ganze Küche sortiert." },
+
+  /* ---- Bad ---- */
+  { id: "p5", zone: "bad", title: "Waschbecken & Spiegel", freq: "täglich", day: "täglich", time: "3 Min.",
+    how: "<p>Täglich frisch in unter fünf Minuten.</p><ol><li>Waschbecken mit dem Feuchttuch auswischen, Armatur polieren.</li><li>Spiegel mit Glasreiniger und Mikrofasertuch streifenfrei putzen.</li><li>Seifenspender und Ablagen abwischen.</li><li>Handtuch glatt hängen oder wechseln.</li></ol>",
+    tip: "Nach dem Zähneputzen kurz den Wasserhahn trocken wischen – so entsteht gar kein Kalk." },
+  { id: "p6", zone: "bad", title: "Dusche reinigen", freq: "Wöchentlich", day: "mittwoch", time: "12 Min.",
+    how: "<p>Kalk und Seifenreste haben gegen diese Routine keine Chance.</p><ol><li>Duschkabine mit warmem Wasser anfeuchten.</li><li>Reiniger (oder Essig-Spülmittel-Mix) auftragen, 10 Minuten einwirken.</li><li>Wände, Boden und Armatur mit der Duschbürste abreiben.</li><li>Gründlich abduschen, Glas mit dem Tuch trockenziehen.</li></ol>",
+    tip: "Glas nach jeder Dusche mit dem Abzieher kurz abziehen – das spart die halbe Wochenarbeit." },
+  { id: "p7", zone: "bad", title: "Toilette reinigen", freq: "Wöchentlich", day: "dienstag", time: "6 Min.",
+    how: "<p>Schnell erledigt, wenn es zur Gewohnheit wird.</p><ol><li>Reiniger unter den Rand geben, 5 Minuten einwirken lassen.</li><li>Mit der Bürste gründlich durchbürsten, auch unter dem Rand.</li><li>Deckel, Sitz und Außenseite mit Desinfektionstuch abwischen.</li><li>Boden um die Toilette kurz wischen.</li></ol>",
+    tip: "Ein Duftstein hinter die Toilette sorgt zwischen den Putztagen für frische Luft." },
+  { id: "p8", zone: "bad", title: "Fugen & Lüften gründlich", freq: "Monatlich", day: "monatlich", time: "25 Min.",
+    how: "<p>Der Tiefenreinigungs-Termin für dein Bad.</p><ol><li>Fugen mit Bürste und Fugenreiniger (oder Natron-Paste) abreiben.</li><li>Silikonfugen auf Schimmel prüfen – lieber früh handeln.</li><li>Ablaufgitter herausnehmen und den Haarfilter säubern.</li><li>Bad danach 20 Minuten Stoßlüften.</li></ol>",
+    tip: "Schimmel in Fugen? Ein mit Alkohol getränktes Tuch 2 Stunden auflegen wirkt Wunder." },
+
+  /* ---- Wohnzimmer ---- */
+  { id: "p9", zone: "wohnen", title: "Aufräumen & Oberflächen", freq: "täglich", day: "täglich", time: "5 Min.",
+    how: "<p>Die 5-Minuten-Abendroutine für ein ruhiges Zuhause.</p><ol><li>Alles, was nicht ins Wohnzimmer gehört, in einen Korb sammeln und verteilen.</li><li>Couchtisch, Sideboard und Fensterbank abwischen.</li><li>Kissen aufschütteln, Decke falten.</li><li>Boden einmal flüchtig überblicken – Krümel? Sofort wegräumen.</li></ol>",
+    tip: "Fünf Minuten vor dem Schlafengehen mit Musik – dann fühlt sich Aufräumen nach Selbstfürsorge an." },
+  { id: "p10", zone: "wohnen", title: "Staubwischen & saugen", freq: "Wöchentlich", day: "donnerstag", time: "20 Min.",
+    how: "<p>Staub setzt sich ab – wir holen ihn ab.</p><ol><li>Von oben nach unten: Regale, Lampen, Rahmen abstauben.</li><li>Glasflächen und Bilderrahmen mit dem Mikrofasertuch abwischen.</li><li>Sofa, Sessel und unter den Couchtisch saugen.</li><li>Boden saugen, dabei auch hinter die Vorhänge.</li></ol>",
+    tip: "Ein Fensterchen auf Kipp beim Staubwischen – der Staub zieht direkt nach draußen." },
+  { id: "p11", zone: "wohnen", title: "Sofa & Kissen auffrischen", freq: "Wöchentlich", day: "sonntag", time: "15 Min.",
+    how: "<p>So bleibt das Sofa ein Ort, an dem man versinken will.</p><ol><li>Decken und Bezüge aufschütteln, Kissen aufklopfen.</li><li>Sofa und Kissen mit dem Polstermündel (oder Staubsauger-Bürste) absaugen.</li><li>Flecken sofort mit feuchtem Tuch behandeln.</li><li>Bezüge bei Bedarf wechseln – sonntags ist Waschtag.</li></ol>",
+    tip: "Ein Spritzer Wasser mit zwei Tropfen Lavendelöl im Sprühflakon – der Duft macht das Sofa neu." },
+  { id: "p12", zone: "wohnen", title: "Fenster & Fensterbänke", freq: "Monatlich", day: "monatlich", time: "30 Min.",
+    how: "<p>Licht rein, Staub raus.</p><ol><li>Fensterbänke abstauben und mit Glasreiniger abwischen.</li><li>Glas mit Glasreiniger und Tuch von oben nach unten putzen.</li><li>Fensterrahmen und Griffe abwischen.</li><li>Vorhänge absaugen oder kurz auslüften.</li></ol>",
+    tip: "An trüben Tagen putzen – direkte Sonne lässt Streifen trocknen, bevor du sie wegwischen kannst." },
+
+  /* ---- Schlafzimmer ---- */
+  { id: "p13", zone: "schlafen", title: "Bett machen", freq: "täglich", day: "täglich", time: "2 Min.",
+    how: "<p>Der kleinste Aufwand mit der größten Wirkung.</p><ol><li>Bettwäsche glatt ziehen, Kopfkissen aufschütteln.</li><li>Decke falten oder faltenrichtig ausbreiten.</li><li>Nachttisch: Glas raus, Kerze aus, Notizbuch hin.</li><li>Fenster für 5 Minuten auf – frische Luft im Bett.</li></ol>",
+    tip: "Ein gemachtes Bett am Morgen ist der erste Erfolg des Tages – das verändert alles Weitere." },
+  { id: "p14", zone: "schlafen", title: "Staubwischen & saugen", freq: "Wöchentlich", day: "montag", time: "15 Min.",
+    how: "<p>Sanft schlafen – ohne Staub.</p><ol><li>Nachttische, Kommode und Lampe abstauben.</li><li>Unter dem Bett saugen (Dyson-Rohr oder Besen hilft).</li><li>Fußleisten kurz abwischen.</li><li>Bettzeug für 10 Minuten über das Fenster hängen – wie frisch gewaschen.</li></ol>",
+    tip: "Matratze einmal im Monat mit dem Polstermündel absaugen – gut gegen Hausstaubmilben." },
+  { id: "p15", zone: "schlafen", title: "Vorhänge & Bettkasten", freq: "Monatlich", day: "monatlich", time: "15 Min.",
+    how: "<p>Die monatliche Tiefenpflege für das Schlafzimmer.</p><ol><li>Vorhänge abklopfen oder absaugen, bei Bedarf waschen.</li><li>Bettkasten öffnen und kurz sortieren.</li><li>Unter der Matratze und am Bettrahmen abstauben.</li><li>Saison-Sachen durchsortieren, was du nicht brauchst, weggeben.</li></ol>",
+    tip: "Zwei Duftperlen im Bettkasten – die Bettwäsche riecht beim Umziehen wie frisch gewaschen." },
+  { id: "p16", zone: "schlafen", title: "Fußboden wischen", freq: "Monatlich", day: "monatlich", time: "20 Min.",
+    how: "<p>Barfußlaufen auf frischem Boden – ein kleines Ritual.</p><ol><li>Vorher gründlich saugen, auch unter dem Bett.</li><li>Wischmittel (weniger ist mehr!) in lauwarmem Wasser.</li><li>Von der Tür zur Mitte wischen, dabei Schranknähte mitnehmen.</li><li>Boden 10 Minuten trocknen lassen, Fenster auf.</li></ol>",
+    tip: "Zu viel Reinigungsmittel macht den Boden klebrig – ein Spritzer genügt." },
+
+  /* ---- Flur & Außen ---- */
+  { id: "p17", zone: "flur", title: "Flur & Eingang aufräumen", freq: "Wöchentlich", day: "dienstag", time: "10 Min.",
+    how: "<p>Der Flur ist die Visitenkarte deines Zuhauses.</p><ol><li>Schuhe ordnen, Paare zusammenstellen.</li><li>Garderobe ausdünnen – nur das, was du trägst, darf bleiben.</li><li>Diele wischen oder saugen, auch unter der Schuhablage.</li><li>Post durchsortieren, Werbung direkt entsorgen.</li></ol>",
+    tip: "Eine kleine Schale für Schlüssel und Geldbeutel – nie wieder Suchen am Morgen." },
+  { id: "p19", zone: "flur", title: "Müll & Wertstoff", freq: "Wöchentlich", day: "mittwoch", time: "8 Min.",
+    how: "<p>Alles raus, bevor es ungemütlich wird.</p><ol><li>Mülleimer in Küche, Bad und Arbeitszimmer leeren.</li><li>Glas, Papier und Wertstoff zusammenstellen.</li><li>Altglas zum Container bringen (an den Weg zur Arbeit denken).</li><li>Neue Beutel einlegen, Eimer bei Bedarf auswischen.</li></ol>",
+    tip: "Müllbeutel in die leeren Eimer stapeln – so hast du immer einen griffbereit." },
+  { id: "p24", zone: "flur", title: "Balkon / Terrasse", freq: "Monatlich", day: "monatlich", time: "25 Min.",
+    how: "<p>Draußen aufatmen – mit sauberem Lieblingsplatz.</p><ol><li>Möbel abwischen, Kissen ausklopfen.</li><li>Boden fegen oder mit dem Schrubber wischen.</li><li>Pflanzentöpfe von Moos und Algen befreien.</li><li>Geländer und Türklinke abwischen.</li></ol>",
+    tip: "Ein Topf Lavendel oder Rosmarin – duftet und hält Mücken fern." },
+
+  /* ---- Extra-Wochenplan ---- */
+  { id: "p20", zone: "bad", title: "Spiegel & Glasflächen", freq: "Wöchentlich", day: "freitag", time: "8 Min.",
+    how: "<p>Streifenfrei in zwei Minuten pro Fläche.</p><ol><li>Glasreiniger auftragen (weniger ist mehr).</li><li>Mit dem Mikrofasertuch in Z-Bewegung abwischen.</li><li>Am Ende mit einem trockenen Tuch nachpolieren.</li><li>Unterkanten und Rahmen nicht vergessen.</li></ol>",
+    tip: "Alte Zeitungen polieren Glas streifenfrei – und kosten nichts." },
+  { id: "p21", zone: "kueche", title: "Spülmaschine reinigen", freq: "Wöchentlich", day: "samstag", time: "8 Min.",
+    how: "<p>Sauber gewaschen wird nur in einer sauberen Maschine.</p><ol><li>Filter herausnehmen, unter heißem Wasser abspülen.</li><li>Türdichtung und Türinnenkante abwischen.</li><li>Ein Spülmaschinenreiniger bei 65 °C durchlaufen lassen (monatlich reicht).</li><li>Korb und Besteckkorb kurz ausspülen.</li></ol>",
+    tip: "Salz und Klarspüler prüfen – wenn beides stimmt, glänzt jedes Glas." },
+  { id: "p22", zone: "wohnen", title: "Pflanzen gießen & versorgen", freq: "Wöchentlich", day: "sonntag", time: "10 Min.",
+    how: "<p>Deine Pflanzen sind die stillen Mitbewohner – um sie wird sich gekümmert.</p><ol><li>Erde mit dem Finger prüfen: trocken? Dann gießen.</li><li>Blätter mit einem feuchten Tuch abstauben.</li><li>Gelbe Blätter entfernen, Triebe bei Bedarf stutzen.</li><li>Pflanzenteller leeren – Staunässe vermeiden.</li></ol>",
+    tip: "Pflanzen lieben das Gießen am Morgen – das Wasser kommt dann dort an, wo es gebraucht wird." },
+  { id: "p23", zone: "wohnen", title: "Heizkörper & Lüftungsgitter", freq: "Monatlich", day: "monatlich", time: "15 Min.",
+    how: "<p>Warme Luft, klare Sicht, weniger Staub.</p><ol><li>Heizkörper mit der Heizkörperbürste abstauben.</li><li>Lüftungsgitter absaugen und abwischen.</li><li>Thermostate prüfen – im Winter sanft drehen, nicht blockieren.</li><li>Vor den Heizkörpern nichts lagern lassen.</li></ol>",
+    tip: "Staubige Heizkörper verbrauchen bis zu 15 % mehr Energie – das lohnt sich doppelt." }
+];
+
+/* ============================================================
+   S T A R T D A T E N  ·  Beispiel-Inhalte
+   ============================================================ */
+
+const BUDGET_CATS = [
+  { id: "lebensmittel", name: "Lebensmittel", color: "#e4a7ac" },
+  { id: "drogerie",     name: "Drogerie & Pflege", color: "#cdb9d4" },
+  { id: "haushalt",     name: "Haushalt & Deko", color: "#c9a66b" },
+  { id: "essen_gehen",  name: "Essen & Unterhaltung", color: "#9db89a" },
+  { id: "sonstiges",    name: "Sonstiges", color: "#d08a87" }
+];
+
+const TODO_CATS  = ["Haushalt", "Einkauf", "Termin", "Pflege", "Sonstiges"];
+const SHOP_CATS  = ["Lebensmittel", "Drogerie", "Haushalt"];
+
+const MEAL_IDEAS = [
+  { name: "Porridge mit Beeren",   ing: ["Haferflocken", "Milch", "Beeren", "Honig"] },
+  { name: "Caprese-Sandwich",      ing: ["Ciabatta", "Tomaten", "Mozzarella", "Basilikum"] },
+  { name: "Ofengemüse mit Feta",   ing: ["Zucchini", "Paprika", "Feta", "Olivenöl"] },
+  { name: "Pasta al Limone",       ing: ["Spaghetti", "Zitrone", "Parmesan", "Sahne"] },
+  { name: "Bowl mit Kichererbsen", ing: ["Kichererbsen", "Avocado", "Reis", "Limette"] },
+  { name: "Linsensuppe",           ing: ["Rote Linsen", "Karotten", "Zwiebeln", "Gemüsebrühe"] },
+  { name: "Pancakes am Sonntag",   ing: ["Mehl", "Milch", "Eier", "Ahornsirup"] },
+  { name: "Wrap mit Hähnchen",     ing: ["Tortillas", "Hähnchenbrust", "Salat", "Joghurt"] },
+  { name: "Kürbisrisotto",         ing: ["Risottoreis", "Kürbis", "Zwiebeln", "Parmesan"] },
+  { name: "Griechischer Salat",    ing: ["Gurke", "Tomaten", "Feta", "Oliven"] },
+  { name: "Kartoffelsuppe",        ing: ["Kartoffeln", "Lauch", "Sahne", "Petersilie"] },
+  { name: "Avocado-Toast",         ing: ["Vollkornbrot", "Avocado", "Eier", "Chiliflocken"] }
+];
+
+const LEXIKON = [
+  { t: "Essigessenz", d: "Der Alleskönner gegen Kalk: 1 Teil Essig, 2 Teile Wasser – für Armaturen, Duschköpfe und Wasserkocher. Nie auf Marmor oder Naturstein verwenden." },
+  { t: "Natron", d: "Sanftes Schleifmittel und Geruchskiller. Mit Wasser zu Brei verrührt entfernt es Fett, im Kühlschrank neutralisiert es Gerüche." },
+  { t: "Zitronensäure", d: "Löst Kalk schonend, ideal für Kaffeemaschine und Wasserkocher. Einfach 2 EL in Wasser auflösen, durchlaufen lassen, nachspülen." },
+  { t: "Mikrofasertuch", d: "Ein feuchtes Tuch reinigt, ein trockenes poliert. Zum Glänzen immer in kreisenden Bewegungen nachpolieren – ganz ohne Spray." },
+  { t: "Five-Minute-Rule", d: "Was in unter fünf Minuten erledigt ist, wird sofort getan. Aufhängen, abwischen, einräumen – so sammelt sich nichts an." },
+  { t: "Reset-Routine", d: "Ein fester Termin pro Tag (z. B. 20 Uhr), an dem das Zuhause in 10 Minuten zurückgesetzt wird: Küche, Oberflächen, ein Waschgang." },
+  { t: "Decluttering", d: "Ausmisten nach der Kapsel-Logik: Alles behalten, was du liebst oder brauchst. Der Rest wird verschenkt, verkauft oder entsorgt." },
+  { t: "Kapselgarderobe", d: "Wenige, gut kombinierbare Stücke statt voller Schränke. Die Faustregel: Was du 12 Monate nicht getragen hast, darf gehen." },
+  { t: "One-Touch-Regel", d: "Dinge nur einmal anfassen: Post direkt entsorgen oder abheften, Kleidung sofort aufhängen oder in die Wäsche." },
+  { t: "Zonen-Prinzip", d: "Die Wohnung in Zonen teilen und jede Woche eine Zone intensiv pflegen – so bleibt alles regelmäßig dran, ohne Marathon." },
+  { t: "Schimmel", d: "Frisch entdeckt? Alkohol (70 %) auf ein Tuch, 2 Stunden einwirken. Bei Silikonfugen hilft nur Entfernen und Neuversiegeln." },
+  { t: "Kalkflecken", d: "Vorbeugen ist leichter: Nach dem Duschen abziehen, Armaturen trocken wischen, beim Lüften die Badezimmertür offen lassen." },
+  { t: "Duftwäsche", d: "Ein Tropfen ätherisches Öl auf ein Wattepad im Wäschekorb – die Wäsche duftet dezent, ohne Weichspüler." },
+  { t: "Bettwäsche-Regel", d: "Alle 2 Wochen wechseln, Kissenbezüge wöchentlich. Am besten direkt zwei Garnituren besitzen – dann ist der Wechsel in 2 Minuten erledigt." },
+  { t: "Emmer-Methode", d: "Für große Putzeinheiten: Alles in einen Eimer (Tücher, Bürste, Reiniger) und von Raum zu Raum tragen – spart unglaublich Zeit." },
+  { t: "Anti-Staub-Routine", d: "Immer von oben nach unten putzen, zuletzt saugen. Vorher kurz lüften, damit der aufgewirbelte Staub entweichen kann." },
+  { t: "Vorratsliste", d: "Feste Basisvorräte (Reis, Nudeln, Brühe, Öl) einmal im Monat prüfen und nachkaufen – so wird Kochen spontan und günstig." },
+  { t: "Wochenrückblick", d: "Sonntags 10 Minuten: Kalender der Woche checken, To-Dos verteilen, Essensplan skizzieren, Einkaufsliste schreiben." },
+  { t: "Große Wäsche", d: "Buntwäsche bei 40 °C, Handtücher bei 60 °C, Feinwäsche im Schonwaschgang. Trommel nie voller als zu drei Vierteln." },
+  { t: "Kühlschrank-Regel", d: "Nach dem Einkauf von hinten einräumen, ältere Ware nach vorne. Einmal pro Woche einen Blick werfen – nichts wird vergessen." }
+];
+/* ============================================================
+   Z U S T A N D  ·  Speicher · XP · Serie
+   ============================================================ */
+
+const STORAGE_KEY = "haushaltsPlaner_v2";
+
+function dateToStr(d) {
+  return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+}
+function todayStr() { return dateToStr(new Date()); }
+function parseDate(s) { return new Date(s + "T00:00:00"); }
+function addDays(d, n) { const x = new Date(d.getTime() + n * 86400000); return x; }
+function addDaysStr(s, n) { return dateToStr(addDays(parseDate(s), n)); }
+function dayDiff(a, b) { return Math.round((parseDate(b) - parseDate(a)) / 86400000); }
+const MONTHS = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"];
+const MONTHS_SHORT = ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"];
+const DAY_SHORT = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"];
+function fmtDate(s) { const d = parseDate(s); return DAY_SHORT[d.getDay()] + ", " + d.getDate() + ". " + MONTHS_SHORT[d.getMonth()]; }
+function weekStart(offset) {
+  const now = new Date();
+  const dow = (now.getDay() + 6) % 7;
+  const mon = addDays(now, -dow + (offset || 0) * 7);
+  return dateToStr(mon);
+}
+function esc(s) {
+  return String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+}
+function uid() { return "id" + Math.random().toString(36).slice(2, 9); }
+function randomOf(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+
+function loadState() {
+  let s;
+  try { s = JSON.parse(localStorage.getItem(STORAGE_KEY)); } catch (e) { s = null; }
+  const def = {
+    userName: null, userAvatar: null, soundOn: true, clickSound: true, introSeen: false,
+    xp: 0, streak: 0, lastStudy: null, activeDays: [], sterne: 0, dayRewarded: null,
+    taskDone: {}, taskNext: {}, todos: [], shopping: [], meals: {}, events: [], expenses: [],
+    budgetLimit: 0, budgetSet: false, recipes: [], customTasks: [],
+    stage: 0, hatchDate: null, catType: null, catName: null, catGender: null,
+    ownedItems: [], equipped: {}, companionHidden: false, companionPos: null
+  };
+  if (!s || typeof s !== "object") s = {};
+  s = Object.assign(def, s);
+  if (!s.budgetSet) s.budgetLimit = 0;
+  if (!Array.isArray(s.customTasks)) s.customTasks = [];
+  return s;
+}
+
+let state = loadState();
+initTaskSchedule();
+function saveState() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
+  updateSidebar();
+  syncCompanion();
+}
+
+/* ---- XP & Level ---- */
+function getLevel() {
+  let cur = LEVELS[0], next = LEVELS[LEVELS.length - 1];
+  for (let i = 0; i < LEVELS.length; i++) {
+    if (state.xp >= LEVELS[i].xp) cur = LEVELS[i];
+    if (LEVELS[i].xp > state.xp) { next = LEVELS[i]; break; }
+  }
+  return { cur, next };
+}
+function roman(n) {
+  const map = [[10, "X"], [9, "IX"], [5, "V"], [4, "IV"], [1, "I"]];
+  let out = "";
+  map.forEach(([v, s]) => { while (n >= v) { out += s; n -= v; } });
+  return out || "I";
+}
+
+/* ---- Aktivität & Serie ---- */
+function registerStudy() {
+  const today = todayStr();
+  if (!state.activeDays.includes(today)) state.activeDays.push(today);
+  if (state.lastStudy !== today) {
+    const yesterday = dateToStr(new Date(Date.now() - 86400000));
+    if (state.lastStudy === yesterday) state.streak = (state.streak || 0) + 1;
+    else state.streak = 1;
+    state.lastStudy = today;
+    state.sterne = (state.sterne || 0) + 1;
+  }
+  checkCompanion();
+}
+function addXp(amount, label, silent) {
+  state.xp += amount;
+  registerStudy();
+  saveState();
+  if (!silent) showToast(label || "Geschafft", amount);
+  checkDayReward();
+}
+function addSterne(amount, label) {
+  state.sterne += amount;
+  saveState();
+  showToast(label || "Sterne gesammelt", 0, amount);
+}
+function checkDayReward() {
+  if (state.dayRewarded === todayStr()) return;
+  const openTasks = dueTasksToday().length;
+  const openTodos = state.todos.filter(x => !x.done && x.due <= todayStr()).length;
+  const anythingThere = allTasks().some(t => isTaskDoneToday(t.id)) || state.todos.some(x => x.due <= todayStr());
+  if (openTasks === 0 && openTodos === 0 && anythingThere) {
+    state.dayRewarded = todayStr();
+    state.sterne += 2;
+    saveState();
+    showToast("Tag geschafft! Alles erledigt ✨", 0, 2);
+  }
+}
+
+/* ---- Putzplan-Logik: Fälligkeits-Zyklen ---- */
+function isTaskDoneToday(id) {
+  return !!(state.taskDone[id] && state.taskDone[id].includes(todayStr()));
+}
+function taskLastDone(id) {
+  const arr = state.taskDone[id] || [];
+  return arr.length ? arr[arr.length - 1] : null;
+}
+function allTasks() { return PUTZ_TASKS.concat(state.customTasks || []); }
+function taskEvery(t) {
+  if (t.every) return t.every;
+  return t.freq === "täglich" ? 1 : t.freq === "Monatlich" ? 30 : 7;
+}
+function taskIntervalLabel(t) {
+  const e = taskEvery(t);
+  if (e === 1) return "täglich";
+  if (e === 7) return "wöchentlich";
+  if (e === 14) return "alle 2 Wochen";
+  if (e === 30) return "monatlich";
+  if (e === 90) return "alle 3 Monate";
+  return "alle " + e + " Tage";
+}
+function initTaskSchedule() {
+  const today = todayStr();
+  const t7 = allTasks().filter(x => taskEvery(x) < 30);
+  const t30 = allTasks().filter(x => taskEvery(x) >= 30);
+  allTasks().forEach(t => {
+    if (state.taskNext[t.id]) return;
+    const e = taskEvery(t);
+    if (e === 1) state.taskNext[t.id] = today;
+    else if (e < 30) state.taskNext[t.id] = addDaysStr(today, t7.indexOf(t) % e);
+    else state.taskNext[t.id] = addDaysStr(today, (t30.indexOf(t) * 4) % e);
+  });
+}
+function taskStatus(t) {
+  const due = state.taskNext[t.id] || todayStr();
+  const diff = dayDiff(todayStr(), due);
+  const doneToday = isTaskDoneToday(t.id);
+  return { due, diff, doneToday, overdue: diff < 0 && !doneToday, dueNow: diff <= 0 };
+}
+function dueTasksToday() {
+  return allTasks().filter(t => taskStatus(t).dueNow && !isTaskDoneToday(t.id));
+}
+function todayStats() {
+  const done = allTasks().filter(t => isTaskDoneToday(t.id)).length;
+  const open = dueTasksToday().length;
+  return { done, open, total: done + open, pct: (done + open) ? Math.round(done / (done + open) * 100) : 0 };
+}
+function upcomingTasks(count) {
+  return allTasks().slice()
+    .sort((a, b) => (state.taskNext[a.id] || todayStr()).localeCompare(state.taskNext[b.id] || todayStr()))
+    .slice(0, count || 6);
+}
+function zoneTasks(zoneId) { return allTasks().filter(t => t.zone === zoneId); }
+function zoneProgress(zoneId) {
+  const ts = zoneTasks(zoneId);
+  const done = ts.filter(t => taskStatus(t).diff > 0 || isTaskDoneToday(t.id)).length;
+  return { done, total: ts.length, pct: ts.length ? Math.round(done / ts.length * 100) : 0 };
+}
+function overallProgress() { return todayStats(); }
+function toggleTask(id) {
+  const t = allTasks().find(x => x.id === id);
+  if (!t) return;
+  const arr = state.taskDone[id] || (state.taskDone[id] = []);
+  const today = todayStr();
+  if (isTaskDoneToday(id)) {
+    const i = arr.lastIndexOf(today);
+    if (i >= 0) arr.splice(i, 1);
+    state.taskNext[id] = today;
+    state.xp = Math.max(0, state.xp - 12);
+    saveState();
+    refresh();
+    return;
+  }
+  arr.push(today);
+  state.taskNext[id] = addDaysStr(today, taskEvery(t));
+  addXp(12, t.title + " erledigt");
+  companionSay(randomOf(COMPANION_CHEERS));
+  checkDayReward();
+  refresh();
+}
+
+/* ---- Toast ---- */
+function showToast(text, xp, st) {
+  const el = document.getElementById("toast");
+  let chips = "";
+  if (xp) chips += '<span class="xp">' + (xp > 0 ? "+" : "") + xp + ' XP</span>';
+  if (st) chips += '<span class="st">' + (st > 0 ? "+" : "") + st + ' ★</span>';
+  el.innerHTML = esc(text) + chips;
+  el.classList.add("show");
+  clearTimeout(showToast._t);
+  showToast._t = setTimeout(() => el.classList.remove("show"), 3200);
+}
+
+/* ---- Sidebar ---- */
+function updateSidebar() {
+  const { cur, next } = getLevel();
+  const idx = LEVELS.indexOf(cur) + 1;
+  const span = Math.max(1, next.xp - cur.xp);
+  const pct = Math.min(100, Math.round((state.xp - cur.xp) / span * 100));
+  const el = id => document.getElementById(id);
+  if (!el("sideLevel")) return;
+  el("sideLevel").textContent = cur.lvl ? roman(cur.lvl) : roman(idx);
+  el("sideRank").textContent = cur.name;
+  el("sideXp").textContent = state.xp + " / " + next.xp + " XP";
+  el("sideXpBar").style.width = pct + "%";
+  el("sideUser").textContent = (state.userName ? state.userName : "Gast") + " · ★ " + (state.sterne || 0) + " Sterne";
+}
+
+/* ============================================================
+   R O U T E R
+   ============================================================ */
+let currentView = "dashboard";
+let currentWeekOffset = 0;
+let putzTab = "tag";
+let shopFilter = "alle";
+let calCursor = new Date();
+let budgetCursor = new Date();
+
+function refresh() {
+  navigate(currentView, { silent: true });
+}
+
+function navigate(view, opts) {
+  opts = opts || {};
+  currentView = view;
+  document.querySelectorAll(".nav-item").forEach(n => n.classList.toggle("active", n.dataset.view === view));
+  const main = document.getElementById("main");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+  if (view === "dashboard") renderDashboard(main);
+  else if (view === "kalender") renderKalender(main);
+  else if (view === "putzplan") renderPutzplan(main);
+  else if (view === "aufgaben") renderAufgaben(main);
+  else if (view === "einkauf") renderEinkauf(main);
+  else if (view === "essen") renderEssen(main);
+  else if (view === "budget") renderBudget(main);
+  else if (view === "shop") renderShop(main);
+  else if (view === "lexikon") renderLexikon(main);
+  updateSidebar();
+  if (!opts.silent) playClick();
+}
+
+function toggleSidebar() {
+  document.getElementById("sidebar").classList.toggle("open");
+}
+/* ============================================================
+   V I E W S  ·  Teil 1
+   ============================================================ */
+
+function ringSvg(pct, size) {
+  size = size || 110;
+  const r = size / 2 - 9, c = 2 * Math.PI * r;
+  const off = c * (1 - Math.max(0, Math.min(100, pct)) / 100);
+  return '<svg width="' + size + '" height="' + size + '" viewBox="0 0 ' + size + ' ' + size + '">' +
+    '<circle cx="' + size / 2 + '" cy="' + size / 2 + '" r="' + r + '" fill="none" stroke="rgba(228,167,172,.22)" stroke-width="8"/>' +
+    '<circle cx="' + size / 2 + '" cy="' + size / 2 + '" r="' + r + '" fill="none" stroke="url(#ringGrad)" stroke-width="8" stroke-linecap="round" stroke-dasharray="' + c + '" stroke-dashoffset="' + off + '" transform="rotate(-90 ' + size / 2 + ' ' + size / 2 + ')"/>' +
+    '<defs><linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#e4a7ac"/><stop offset="100%" stop-color="#c9a66b"/></linearGradient></defs>' +
+    '</svg>';
+}
+
+function greeting() {
+  const h = new Date().getHours();
+  return h < 11 ? "Guten Morgen" : h < 18 ? "Guten Tag" : "Guten Abend";
+}
+
+function statsRow() {
+  const weekDone = Object.values(state.taskDone).flat().filter(d => d >= weekStart(0)).length;
+  return '<div class="stats-row">' +
+    '<div class="stat"><div class="k">Serie</div><div class="v">' + (state.streak || 0) + ' <small>Tage</small></div></div>' +
+    '<div class="stat"><div class="k">Erfahrung</div><div class="v">' + state.xp + ' <small>XP</small></div></div>' +
+    '<div class="stat"><div class="k">Sterne</div><div class="v">' + (state.sterne || 0) + ' <small>★</small></div></div>' +
+    '<div class="stat"><div class="k">Diese Woche</div><div class="v">' + weekDone + ' <small>erledigt</small></div></div>' +
+    '</div>';
+}
+
+function todoRowHtml(x, showDue) {
+  const overdue = !x.done && x.due && x.due < todayStr();
+  const dueTxt = x.due ? (x.due === todayStr() ? "Heute" : x.due === addDaysStr(todayStr(), 1) ? "Morgen" : fmtDate(x.due)) : "";
+  return '<div class="check-row' + (x.done ? " done" : "") + '">' +
+    '<div class="check' + (x.done ? " on" : "") + '" onclick="toggleTodo(\'' + x.id + '\')">✓</div>' +
+    '<div class="cr-mid"><div class="cr-title">' + esc(x.text) + '</div>' +
+    '<div class="cr-meta">' + esc(x.cat) + (x.prio === "hoch" ? ' · <span style="color:var(--red)">Wichtig</span>' : x.prio === "mittel" ? " · Mittel" : "") + '</div></div>' +
+    '<div class="cr-right">' +
+    (showDue !== false && dueTxt ? '<span class="tag' + (overdue ? "" : " grey") + '"' + (overdue ? ' style="background:#fbeceb;color:var(--red);border-color:rgba(208,138,135,.4)"' : "") + '>' + dueTxt + '</span>' : "") +
+    '<button class="icon-btn" onclick="deleteTodo(\'' + x.id + '\')" title="Löschen">✕</button>' +
+    '</div></div>';
+}
+
+function taskDueTag(t) {
+  const st = taskStatus(t);
+  if (st.doneToday) return '<span class="tag green">heute erledigt · fällig ' + fmtDate(st.due) + '</span>';
+  if (st.overdue) return '<span class="tag" style="background:#fbeceb;color:var(--red);border-color:rgba(208,138,135,.4)">überfällig seit ' + (-st.diff) + ' Tag' + (st.diff === -1 ? "" : "en") + '</span>';
+  if (st.diff === 0) return '<span class="tag">heute fällig</span>';
+  return '<span class="tag grey">fällig in ' + st.diff + ' Tag' + (st.diff === 1 ? "" : "en") + '</span>';
+}
+
+function taskRowHtml(t, withHow) {
+  const done = isTaskDoneToday(t.id);
+  const zone = ZONES.find(z => z.id === t.zone) || ZONES[0];
+  return '<div class="check-row' + (done ? " done" : "") + '">' +
+    '<div class="check' + (done ? " on" : "") + '" onclick="toggleTask(\'' + t.id + '\')">✓</div>' +
+    '<div class="cr-mid"><div class="cr-title">' + esc(t.title) + '</div>' +
+    '<div class="cr-meta"><span style="color:' + zone.color + '">' + zone.title + '</span> · ' + taskIntervalLabel(t) + ' · ' + t.time + '</div></div>' +
+    '<div class="cr-right">' + taskDueTag(t) +
+    (t.custom ? '<button class="icon-btn" onclick="deleteCustomTask(\'' + t.id + '\')" title="Aufgabe löschen">✕</button>' : "") +
+    (withHow !== false ? '<details style="text-align:left"><summary class="tag grey" style="cursor:pointer">So wird\'s gemacht</summary>' +
+      '<div class="detail-box"><h5>' + esc(t.title) + '</h5>' + t.how +
+      (t.tip ? '<div class="tipbox"><span class="i">✦</span>' + esc(t.tip) + '</div>' : "") + '</div></details>' : "") +
+    '</div></div>';
+}
+
+/* ---------------- Dashboard ---------------- */
+function renderDashboard(main) {
+  const op = overallProgress();
+  const today = dueTasksToday();
+  const todayTodos = state.todos.filter(x => !x.done && x.due <= todayStr());
+  const upcoming = state.events.filter(e => e.date >= todayStr()).sort((a, b) => a.date.localeCompare(b.date)).slice(0, 3);
+  const nextTasks = upcomingTasks(5);
+
+  main.innerHTML =
+    '<div class="topbar"><div>' +
+      '<div class="overline">' + fmtDate(todayStr()) + '</div>' +
+      '<h2>' + greeting() + ', ' + esc(state.userName || "Schön, dass du da bist") + '</h2>' +
+      '<p class="sub">Dein Zuhause liebt Routinen – und du liebst das Gefühl danach.</p>' +
+    '</div>' +
+    '<button class="btn ghost" onclick="showSettings()">Profil &amp; Einstellungen</button></div>' +
+
+    '<div class="hero">' +
+      '<div class="ring-wrap">' + ringSvg(op.pct) + '<div class="ring-txt">' + op.pct + '%</div></div>' +
+      '<div class="hero-txt">' +
+        '<div class="overline">Heute</div>' +
+        '<h2>' + op.done + ' von ' + op.total + ' Aufgaben geschafft</h2>' +
+        '<p>' + (op.pct === 100 ? "Alles erledigt – dein Zuhause glänzt und du kannst dich zurücklehnen." : "Noch " + (op.total - op.done) + " kleine Dinge, dann ist der Tag perfekt gerundet.") + '</p>' +
+        '<div class="btn-row">' +
+          '<button class="btn primary" onclick="navigate(\'putzplan\')">Weitermachen</button>' +
+          '<button class="btn ghost" onclick="navigate(\'kalender\')">Kalender ansehen</button>' +
+        '</div>' +
+      '</div>' +
+    '</div>' +
+
+    statsRow() +
+
+    '<div class="section grid-2">' +
+      '<div class="card">' +
+        '<div class="section-head"><h3>Heute fällig</h3><span class="tag">' + (today.length + todayTodos.length) + ' offen</span></div>' +
+        (today.length || todayTodos.length ?
+          today.map(t => taskRowHtml(t, false)).join("") + todayTodos.map(x => todoRowHtml(x)).join("") :
+          '<div class="empty">Alles erledigt – Zeit für eine Tasse Tee ☕</div>') +
+        '<div class="btn-row"><button class="btn small ghost" onclick="navigate(\'aufgaben\')">Alle To-Dos</button></div>' +
+      '</div>' +
+      buddyGroup() +
+    '</div>' +
+
+    '<div class="section">' +
+      '<div class="section-head"><h3>Als Nächstes fällig</h3>' +
+      '<button class="btn small ghost" onclick="navigate(\'putzplan\')">Zum Putzplan</button></div>' +
+      (nextTasks.length ? nextTasks.map(t => taskRowHtml(t, false)).join("") : '<div class="empty">Alles im Plan – mehr ist gerade nicht zu tun.</div>') +
+    '</div>' +
+
+    '<div class="section">' +
+      '<div class="section-head"><h3>Deine Räume</h3><span class="tag gold">Jede Zone hat ihre Routine</span></div>' +
+      '<div class="grid-3">' +
+      ZONES.map(z => {
+        const p = zoneProgress(z.id);
+        return '<div class="card" style="cursor:pointer" onclick="putzTab=\'raum\';navigate(\'putzplan\')">' +
+          '<div style="font-size:22px;color:' + z.color + '">' + z.icon + '</div>' +
+          '<h3 style="margin-top:6px">' + z.title + '</h3>' +
+          '<p class="desc">' + z.desc + '</p>' +
+          '<div class="bar" style="margin:14px 0 8px"><i style="width:' + p.pct + '%"></i></div>' +
+          '<div class="mini-stat"><b>' + p.done + '/' + p.total + '</b> Aufgaben im Blick</div>' +
+        '</div>';
+      }).join("") +
+      '</div>' +
+    '</div>' +
+
+    '<div class="section">' +
+      '<div class="section-head"><h3>Nächste Termine</h3>' +
+      '<button class="btn small ghost" onclick="showEventModal()">+ Termin</button></div>' +
+      (upcoming.length ? '<div class="grid-3">' + upcoming.map(e =>
+        '<div class="card"><div class="overline">' + fmtDate(e.date) + (e.time ? " · " + e.time : "") + '</div>' +
+        '<h3 style="margin-top:6px">' + esc(e.title) + '</h3>' +
+        (e.note ? '<p class="desc">' + esc(e.note) + '</p>' : "") +
+        '<div style="margin-top:10px"><span class="tag grey">' + esc(e.cat || "Termin") + '</span></div></div>'
+      ).join("") + '</div>' : '<div class="empty">Keine Termine – genug Platz für schöne Dinge.</div>') +
+    '</div>';
+}
+
+/* ---------------- Kalender ---------------- */
+function renderKalender(main) {
+  const y = calCursor.getFullYear(), m = calCursor.getMonth();
+  const first = new Date(y, m, 1);
+  const startDow = (first.getDay() + 6) % 7;
+  const daysInMonth = new Date(y, m + 1, 0).getDate();
+  const cells = [];
+  for (let i = 0; i < startDow; i++) {
+    const d = new Date(y, m, -startDow + i + 1);
+    cells.push({ ds: dateToStr(d), num: d.getDate(), other: true });
+  }
+  for (let i = 1; i <= daysInMonth; i++) cells.push({ ds: dateToStr(new Date(y, m, i)), num: i, other: false });
+  while (cells.length % 7) {
+    const d = new Date(y, m + 1, cells.length - startDow - daysInMonth + 1);
+    cells.push({ ds: dateToStr(d), num: d.getDate(), other: true });
+  }
+  const upcoming = state.events.filter(e => e.date >= todayStr()).sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time));
+
+  main.innerHTML =
+    '<div class="topbar"><div>' +
+      '<div class="overline">Übersicht</div><h2>Kalender</h2>' +
+      '<p class="sub">Termine, Pläne und kleine Vorfreuden – alles an einem Ort.</p>' +
+    '</div>' +
+    '<div class="btn-row" style="margin:0">' +
+      '<button class="btn ghost" onclick="calMove(-1)">‹ Zurück</button>' +
+      '<button class="btn ghost" onclick="calToday()">Heute</button>' +
+      '<button class="btn primary" onclick="showEventModal()">+ Termin</button>' +
+    '</div></div>' +
+
+    '<div class="card">' +
+      '<div class="section-head"><h3>' + MONTHS[m] + ' ' + y + '</h3>' +
+      '<div class="btn-row" style="margin:0"><button class="btn small ghost" onclick="calMove(1)">› Weiter</button></div></div>' +
+      '<div class="cal-grid">' +
+        ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"].map(d => '<div class="cal-head">' + d + '</div>').join("") +
+        cells.map(c => {
+          const evs = state.events.filter(e => e.date === c.ds);
+          return '<div class="cal-day' + (c.other ? " other" : "") + (c.ds === todayStr() ? " today" : "") + '" onclick="showDayModal(\'' + c.ds + '\')">' +
+            '<div class="cd-num">' + c.num + '</div>' +
+            evs.slice(0, 2).map((e, i) => '<div class="cd-ev' + (i === 1 ? " gold" : "") + '">' + esc(e.title) + '</div>').join("") +
+            (evs.length > 2 ? '<div class="cd-ev green">+' + (evs.length - 2) + ' mehr</div>' : "") +
+          '</div>';
+        }).join("") +
+      '</div>' +
+    '</div>' +
+
+    '<div class="section">' +
+      '<div class="section-head"><h3>Was ansteht</h3><span class="tag">' + upcoming.length + ' Termine</span></div>' +
+      (upcoming.length ? upcoming.map(e =>
+        '<div class="check-row">' +
+        '<div class="cr-mid"><div class="cr-title">' + esc(e.title) + '</div>' +
+        '<div class="cr-meta">' + fmtDate(e.date) + (e.time ? " · " + e.time : "") + (e.note ? " · " + esc(e.note) : "") + '</div></div>' +
+        '<div class="cr-right"><span class="tag grey">' + esc(e.cat || "Termin") + '</span>' +
+        '<button class="icon-btn" onclick="deleteEvent(\'' + e.id + '\')">✕</button></div></div>'
+      ).join("") : '<div class="empty">Nichts geplant – die perfekte Gelegenheit für einen Kaffee.</div>') +
+    '</div>';
+}
+function calMove(dir) { calCursor = new Date(calCursor.getFullYear(), calCursor.getMonth() + dir, 1); refresh(); }
+function calToday() { calCursor = new Date(); refresh(); }
+
+function showDayModal(ds) {
+  const evs = state.events.filter(e => e.date === ds).sort((a, b) => (a.time || "").localeCompare(b.time || ""));
+  showModal(
+    '<h3>' + fmtDate(ds) + '</h3><p class="m-sub">' + (ds === todayStr() ? "Heute" : parseDate(ds).getDate() + ". " + MONTHS[parseDate(ds).getMonth()]) + '</p>' +
+    (evs.length ? evs.map(e =>
+      '<div class="check-row"><div class="cr-mid"><div class="cr-title">' + esc(e.title) + '</div>' +
+      '<div class="cr-meta">' + (e.time || "Ganztägig") + (e.note ? " · " + esc(e.note) : "") + '</div></div>' +
+      '<div class="cr-right"><button class="icon-btn" onclick="deleteEvent(\'' + e.id + '\');showDayModal(\'' + ds + '\')">✕</button></div></div>'
+    ).join("") : '<div class="empty">Keine Termine an diesem Tag.</div>') +
+    '<div class="btn-row"><button class="btn primary" onclick="showEventModal(\'' + ds + '\')">+ Termin hinzufügen</button></div>'
+  );
+}
+
+function showEventModal(date) {
+  const d = date || todayStr();
+  showModal(
+    '<h3>Neuer Termin</h3><p class="m-sub">Was steht an?</p>' +
+    '<div class="form-row"><div class="field"><label>Titel</label><input class="input" id="evTitle" placeholder="z. B. Friseurtermin"></div>' +
+    '<div class="field"><label>Datum</label><input class="input" id="evDate" type="date" value="' + d + '"></div></div>' +
+    '<div class="form-row"><div class="field"><label>Uhrzeit</label><input class="input" id="evTime" type="time"></div>' +
+    '<div class="field"><label>Kategorie</label><select class="select" id="evCat">' +
+      ["Termin", "Besuch", "Einkauf", "Lieferung", "Arzt", "Sonstiges"].map(c => '<option>' + c + '</option>').join("") +
+    '</select></div></div>' +
+    '<div class="form-row one"><div class="field"><label>Notiz (optional)</label><input class="input" id="evNote" placeholder="Kleine Erinnerung ..."></div></div>' +
+    '<div class="btn-row"><button class="btn primary" onclick="saveEvent()">Speichern</button>' +
+    '<button class="btn ghost" onclick="closeModal()">Abbrechen</button></div>'
+  );
+}
+function saveEvent() {
+  const title = (document.getElementById("evTitle").value || "").trim();
+  const date = document.getElementById("evDate").value || todayStr();
+  if (!title) { showToast("Bitte einen Titel eingeben"); return; }
+  state.events.push({
+    id: uid(), title, date,
+    time: document.getElementById("evTime").value || "",
+    cat: document.getElementById("evCat").value,
+    note: (document.getElementById("evNote").value || "").trim()
+  });
+  saveState(); closeModal(); showToast("Termin gespeichert"); refresh();
+}
+function deleteEvent(id) {
+  state.events = state.events.filter(e => e.id !== id);
+  saveState(); refresh();
+}
+
+/* ---------------- Putzplan ---------------- */
+let putzFilter = "faellig";
+function renderPutzplan(main) {
+  const ts = todayStats();
+  const dow = DAYS[(new Date().getDay() + 6) % 7];
+
+  const sorted = allTasks().slice()
+    .sort((a, b) => (state.taskNext[a.id] || todayStr()).localeCompare(state.taskNext[b.id] || todayStr()));
+  const filtered = sorted.filter(t => {
+    const st = taskStatus(t);
+    if (putzFilter === "faellig") return st.dueNow && !st.doneToday;
+    if (putzFilter === "erledigt") return st.doneToday;
+    return true;
+  });
+
+  const anstehendView =
+    '<div class="card" style="margin-bottom:16px">' +
+      '<div class="note" style="margin:0"><span class="i">✦</span><span>So funktioniert der Plan: Jede Aufgabe hat ein Intervall – z. B. <b>wöchentlich</b>. Wenn du sie abhakst, berechnet der Plan automatisch die nächste Fälligkeit. Du musst nichts weiter tun als abhaken.</span></div>' +
+    '</div>' +
+    '<div class="card">' +
+      '<div class="section-head"><h3>' + (putzFilter === "faellig" ? "Was jetzt ansteht" : putzFilter === "erledigt" ? "Heute erledigt" : "Alle Aufgaben") + '</h3>' +
+      '<div class="btn-row" style="margin:0">' +
+        '<button class="btn small ' + (putzFilter === "faellig" ? "primary" : "ghost") + '" onclick="putzFilter=\'faellig\';refresh()">Fällig</button>' +
+        '<button class="btn small ' + (putzFilter === "erledigt" ? "primary" : "ghost") + '" onclick="putzFilter=\'erledigt\';refresh()">Erledigt</button>' +
+        '<button class="btn small ' + (putzFilter === "alle" ? "primary" : "ghost") + '" onclick="putzFilter=\'alle\';refresh()">Alle</button>' +
+      '</div></div>' +
+      (filtered.length ? filtered.map(t => taskRowHtml(t)).join("") :
+        '<div class="empty">' + (putzFilter === "faellig" ? "Nichts fällig – dein Plan ist perfekt im Zeitplan." : "Noch nichts hier.") + '</div>') +
+    '</div>';
+
+  const raumView = ZONES.map(z => {
+    const p = zoneProgress(z.id);
+    return '<div class="card" style="margin-bottom:16px">' +
+      '<div class="section-head"><h3><span style="color:' + z.color + '">' + z.icon + '</span> ' + z.title + '</h3>' +
+      '<div style="display:flex;align-items:center;gap:12px"><div class="bar" style="width:120px"><i style="width:' + p.pct + '%"></i></div>' +
+      '<span class="tag grey">' + p.done + '/' + p.total + ' im Plan</span></div></div>' +
+      '<p class="desc" style="margin-bottom:12px">' + z.desc + '</p>' +
+      zoneTasks(z.id).map(t => taskRowHtml(t)).join("") +
+    '</div>';
+  }).join("");
+
+  main.innerHTML =
+    '<div class="topbar"><div>' +
+      '<div class="overline">Was · Wann · Wie</div><h2>Putzplan</h2>' +
+      '<p class="sub">Abhaken genügt – die nächste Fälligkeit berechnet sich von selbst.</p>' +
+    '</div>' +
+    '<div class="btn-row" style="margin:0">' +
+      '<button class="btn ' + (putzTab === "tag" ? "primary" : "ghost") + '" onclick="putzTab=\'tag\';refresh()">Nach Fälligkeit</button>' +
+      '<button class="btn ' + (putzTab === "raum" ? "primary" : "ghost") + '" onclick="putzTab=\'raum\';refresh()">Nach Raum</button>' +
+      '<button class="btn gold" onclick="showTaskModal()">+ Eigene Aufgabe</button>' +
+    '</div></div>' +
+    '<div class="stats-row" style="margin-top:0;margin-bottom:18px">' +
+      '<div class="stat"><div class="k">Heute fällig</div><div class="v">' + ts.open + '</div></div>' +
+      '<div class="stat"><div class="k">Heute erledigt</div><div class="v">' + ts.done + '</div></div>' +
+      '<div class="stat"><div class="k">Aufgaben gesamt</div><div class="v">' + allTasks().length + '</div></div>' +
+      '<div class="stat"><div class="k">Wochentag</div><div class="v" style="font-size:22px">' + DAY_LABEL[dow] + '</div></div>' +
+    '</div>' +
+    (putzTab === "tag" ? anstehendView : raumView);
+}
+
+function showTaskModal() {
+  showModal(
+    '<h3>Eigene Putzaufgabe</h3><p class="m-sub">Dein Plan, deine Aufgaben – die Fälligkeit berechnet sich dann von selbst.</p>' +
+    '<div class="form-row one"><div class="field"><label>Name der Aufgabe</label><input class="input" id="ctTitle" placeholder="z. B. Kaminofen putzen"></div></div>' +
+    '<div class="form-row">' +
+      '<div class="field"><label>Raum / Bereich</label><select class="select" id="ctZone">' +
+        ZONES.map(z => '<option value="' + z.id + '">' + z.title + '</option>').join("") +
+      '</select></div>' +
+      '<div class="field"><label>Wie oft?</label><select class="select" id="ctEvery">' +
+        '<option value="1">Täglich</option>' +
+        '<option value="3">Alle 3 Tage</option>' +
+        '<option value="7" selected>Wöchentlich</option>' +
+        '<option value="14">Alle 2 Wochen</option>' +
+        '<option value="30">Monatlich</option>' +
+        '<option value="90">Alle 3 Monate</option>' +
+      '</select></div>' +
+    '</div>' +
+    '<div class="form-row one"><div class="field"><label>Geschätzte Zeit (optional)</label><input class="input" id="ctTime" placeholder="z. B. 10 Min."></div></div>' +
+    '<div class="form-row one"><div class="field"><label>So wird\'s gemacht (optional)</label><textarea class="textarea" id="ctHow" rows="3" placeholder="Deine Anleitung in Stichpunkten …"></textarea></div></div>' +
+    '<div class="btn-row"><button class="btn primary" onclick="saveTask()">In den Plan aufnehmen</button>' +
+    '<button class="btn ghost" onclick="closeModal()">Abbrechen</button></div>'
+  );
+}
+function saveTask() {
+  const title = (document.getElementById("ctTitle").value || "").trim();
+  if (!title) { showToast("Bitte einen Namen eingeben"); return; }
+  const howRaw = (document.getElementById("ctHow").value || "").trim();
+  const how = howRaw ? "<p>" + esc(howRaw).replace(/\n+/g, "</p><p>") + "</p>" : "";
+  const id = "c" + uid();
+  state.customTasks.push({
+    id: id,
+    title: title,
+    zone: document.getElementById("ctZone").value,
+    every: parseInt(document.getElementById("ctEvery").value) || 7,
+    time: (document.getElementById("ctTime").value || "").trim() || "5 Min.",
+    how: how,
+    custom: true
+  });
+  state.taskNext[id] = todayStr();
+  saveState(); closeModal();
+  addXp(3, title + " ist im Plan", 0);
+  refresh();
+}
+function deleteCustomTask(id) {
+  state.customTasks = state.customTasks.filter(t => t.id !== id);
+  delete state.taskNext[id];
+  delete state.taskDone[id];
+  saveState();
+  showToast("Aufgabe aus dem Plan entfernt");
+  refresh();
+}
+
+/* ---------------- To-Dos ---------------- */
+let todoFilter = "offen";
+function renderAufgaben(main) {
+  const list = state.todos
+    .filter(x => todoFilter === "alle" ? true : todoFilter === "offen" ? !x.done : x.done)
+    .sort((a, b) => (a.due || "9").localeCompare(b.due || "9"));
+  const openCount = state.todos.filter(x => !x.done).length;
+
+  main.innerHTML =
+    '<div class="topbar"><div>' +
+      '<div class="overline">Alles im Blick</div><h2>To-Dos</h2>' +
+      '<p class="sub">Von „Lampen wechseln" bis „Geburtstag planen" – hier gerät nichts in Vergessenheit.</p>' +
+    '</div>' +
+    '<div class="btn-row" style="margin:0">' +
+      ['offen', 'erledigt', 'alle'].map(f => '<button class="btn small ' + (todoFilter === f ? "primary" : "ghost") + '" onclick="todoFilter=\'' + f + '\';refresh()">' + f + '</button>').join("") +
+    '</div></div>' +
+
+    '<div class="card">' +
+      '<div class="section-head"><h3>Neue Aufgabe</h3><span class="tag">' + openCount + ' offen</span></div>' +
+      '<div class="form-row">' +
+        '<div class="field"><label>Was ist zu tun?</label><input class="input" id="tdText" placeholder="z. B. Fensterbank dekorieren" onkeydown="if(event.key===\'Enter\')saveTodo()"></div>' +
+        '<div class="field"><label>Bis wann?</label><input class="input" id="tdDue" type="date" value="' + todayStr() + '"></div>' +
+      '</div>' +
+      '<div class="form-row">' +
+        '<div class="field"><label>Kategorie</label><select class="select" id="tdCat">' + TODO_CATS.map(c => '<option>' + c + '</option>').join("") + '</select></div>' +
+        '<div class="field"><label>Priorität</label><select class="select" id="tdPrio"><option value="hoch">Wichtig</option><option value="mittel" selected>Mittel</option><option value="niedrig">Nebenbei</option></select></div>' +
+      '</div>' +
+      '<div class="btn-row"><button class="btn primary" onclick="saveTodo()">Hinzufügen</button></div>' +
+    '</div>' +
+
+    '<div class="section">' +
+      '<div class="section-head"><h3>Deine Liste</h3></div>' +
+      (list.length ? list.map(x => todoRowHtml(x)).join("") : '<div class="empty">Nichts auf der Liste – wie leicht das sich anfühlt.</div>') +
+    '</div>';
+}
+function saveTodo() {
+  const text = (document.getElementById("tdText").value || "").trim();
+  if (!text) { showToast("Bitte einen Text eingeben"); return; }
+  state.todos.unshift({
+    id: uid(), text,
+    due: document.getElementById("tdDue").value || todayStr(),
+    cat: document.getElementById("tdCat").value,
+    prio: document.getElementById("tdPrio").value,
+    done: false
+  });
+  saveState();
+  addXp(3, "Notiert", 0);
+  refresh();
+}
+function toggleTodo(id) {
+  const x = state.todos.find(t => t.id === id);
+  if (!x) return;
+  x.done = !x.done;
+  if (x.done) {
+    addXp(8, x.text + " erledigt");
+    companionSay(randomOf(COMPANION_CHEERS));
+  } else {
+    state.xp = Math.max(0, state.xp - 8);
+    saveState();
+  }
+  checkDayReward();
+  refresh();
+}
+function deleteTodo(id) {
+  state.todos = state.todos.filter(t => t.id !== id);
+  saveState(); refresh();
+}
+/* ============================================================
+   V I E W S  ·  Teil 2
+   ============================================================ */
+
+/* ---------------- Einkaufsliste ---------------- */
+function renderEinkauf(main) {
+  const open = state.shopping.filter(i => !i.done);
+  const done = state.shopping.filter(i => i.done);
+  const grouped = {};
+  open.forEach(i => (grouped[i.cat] = grouped[i.cat] || []).push(i));
+
+  main.innerHTML =
+    '<div class="topbar"><div>' +
+      '<div class="overline">Nichts vergessen</div><h2>Einkaufsliste</h2>' +
+      '<p class="sub">Sortiert nach Regal, damit der Einkauf ein Spaziergang wird.</p>' +
+    '</div>' +
+    '<div class="btn-row" style="margin:0">' +
+      '<button class="btn ghost" onclick="addAllFromMeals()">Aus Essensplan übernehmen</button>' +
+      '<button class="btn primary" onclick="finishShopping()">Einkauf abschließen</button>' +
+    '</div></div>' +
+
+    '<div class="card">' +
+      '<div class="section-head"><h3>Hinzufügen</h3><span class="tag">' + open.length + ' offen</span></div>' +
+      '<div class="form-row">' +
+        '<div class="field"><label>Artikel</label><input class="input" id="shName" placeholder="z. B. Hafermilch" onkeydown="if(event.key===\'Enter\')saveShopping()"></div>' +
+        '<div class="field"><label>Menge</label><input class="input" id="shQty" placeholder="z. B. 2 ×"></div>' +
+      '</div>' +
+      '<div class="form-row one"><div class="field"><label>Kategorie</label><select class="select" id="shCat">' + SHOP_CATS.map(c => '<option>' + c + '</option>').join("") + '</select></div></div>' +
+      '<div class="btn-row"><button class="btn primary" onclick="saveShopping()">Auf die Liste</button></div>' +
+    '</div>' +
+
+    '<div class="section grid-2">' +
+      '<div>' +
+        (Object.keys(grouped).length ? Object.keys(grouped).map(cat =>
+          '<div class="card" style="margin-bottom:16px">' +
+          '<div class="section-head"><h3>' + esc(cat) + '</h3><span class="tag grey">' + grouped[cat].length + '</span></div>' +
+          grouped[cat].map(i =>
+            '<div class="check-row"><div class="check" onclick="toggleShopping(\'' + i.id + '\')">✓</div>' +
+            '<div class="cr-mid"><div class="cr-title">' + esc(i.name) + '</div></div>' +
+            '<div class="cr-right">' + (i.qty ? '<span class="tag grey">' + esc(i.qty) + '</span>' : "") +
+            '<button class="icon-btn" onclick="deleteShopping(\'' + i.id + '\')">✕</button></div></div>'
+          ).join("") + '</div>'
+        ).join("") : '<div class="card"><div class="empty">Die Liste ist leer – entweder ist alles da oder alles vergessen ✨</div></div>') +
+      '</div>' +
+      '<div>' +
+        '<div class="card">' +
+          '<div class="section-head"><h3>Im Korb</h3><span class="tag green">' + done.length + ' erledigt</span></div>' +
+          (done.length ? done.map(i =>
+            '<div class="check-row done"><div class="check on" onclick="toggleShopping(\'' + i.id + '\')">✓</div>' +
+            '<div class="cr-mid"><div class="cr-title">' + esc(i.name) + '</div></div>' +
+            '<div class="cr-right"><button class="icon-btn" onclick="deleteShopping(\'' + i.id + '\')">✕</button></div></div>'
+          ).join("") : '<div class="empty">Noch nichts im Korb.</div>') +
+        '</div>' +
+        '<div class="note" style="margin-top:16px"><span class="i">✦</span><span>Tipp: Kategorien in der Reihenfolge deines Supermarkts anlegen – Obst &amp; Gemüse zuerst, Tiefkühle zuletzt.</span></div>' +
+      '</div>' +
+    '</div>';
+}
+function saveShopping() {
+  const name = (document.getElementById("shName").value || "").trim();
+  if (!name) { showToast("Bitte einen Artikel eingeben"); return; }
+  state.shopping.unshift({ id: uid(), name, cat: document.getElementById("shCat").value, qty: (document.getElementById("shQty").value || "").trim(), done: false });
+  saveState(); addXp(2, "Auf die Liste", 0); refresh();
+}
+function toggleShopping(id) {
+  const i = state.shopping.find(x => x.id === id);
+  if (!i) return;
+  i.done = !i.done;
+  if (i.done) addXp(3, i.name + " im Korb");
+  else { state.xp = Math.max(0, state.xp - 3); saveState(); }
+  refresh();
+}
+function deleteShopping(id) {
+  state.shopping = state.shopping.filter(x => x.id !== id);
+  saveState(); refresh();
+}
+function finishShopping() {
+  const done = state.shopping.filter(i => i.done);
+  if (!done.length) { showToast("Der Korb ist noch leer"); return; }
+  state.shopping = state.shopping.filter(i => !i.done);
+  saveState();
+  addXp(20, "Einkauf erledigt");
+  addSterne(2, "Einkauf abgeschlossen");
+  companionSay(randomOf(COMPANION_CHEERS));
+  refresh();
+}
+function addAllFromMeals() {
+  const ing = new Set();
+  Object.values(state.meals).forEach(m => Object.values(m).forEach(v => {
+    const info = mealInfo(v);
+    if (info) info.ing.forEach(x => ing.add(x));
+  }));
+  if (!ing.size) { showToast("Noch keine Zutaten im Essensplan"); return; }
+  let added = 0;
+  ing.forEach(n => {
+    if (!state.shopping.some(s => s.name.toLowerCase() === n.toLowerCase() && !s.done)) {
+      state.shopping.push({ id: uid(), name: n, cat: "Lebensmittel", qty: "", done: false });
+      added++;
+    }
+  });
+  saveState();
+  showToast(added + " Zutaten übernommen");
+  refresh();
+}
+
+/* ---------------- Essensplan ---------------- */
+let mealWeekOffset = 0;
+function renderEssen(main) {
+  const ws = weekStart(mealWeekOffset);
+  const days = DAYS.map((d, i) => ({ d, ds: addDaysStr(ws, i) }));
+
+  main.innerHTML =
+    '<div class="topbar"><div>' +
+      '<div class="overline">Vorfreude aufs Kochen</div><h2>Essensplan</h2>' +
+      '<p class="sub">Wer plant, kocht entspannter – und kauft klüger ein.</p>' +
+    '</div>' +
+    '<div class="btn-row" style="margin:0">' +
+      '<button class="btn ghost" onclick="mealWeekOffset--;refresh()">‹ Vorherige Woche</button>' +
+      '<button class="btn ghost" onclick="mealWeekOffset=0;refresh()">Diese Woche</button>' +
+      '<button class="btn ghost" onclick="mealWeekOffset++;refresh()">Nächste Woche ›</button>' +
+    '</div></div>' +
+
+    '<div class="grid-3">' +
+    days.map(day => {
+      const m = state.meals[day.ds] || {};
+      const isToday = day.ds === todayStr();
+      return '<div class="card' + (isToday ? "" : "") + '" style="' + (isToday ? "border-color:var(--accent);box-shadow:0 0 0 2px rgba(228,167,172,.22)" : "") + '">' +
+        '<div class="overline">' + (isToday ? "Heute · " : "") + DAY_LABEL[day.d] + '</div>' +
+        '<h3 style="margin:2px 0 10px">' + parseDate(day.ds).getDate() + '. ' + MONTHS_SHORT[parseDate(day.ds).getMonth()] + '</h3>' +
+        mealSlot(day.ds, "f", "Frühstück", m.f) +
+        mealSlot(day.ds, "m", "Mittagessen", m.m) +
+        mealSlot(day.ds, "a", "Abendessen", m.a) +
+      '</div>';
+    }).join("") +
+    '</div>' +
+
+    '<div class="section"><div class="card">' +
+      '<div class="section-head"><h3>Rezept-Sammlung</h3>' +
+      '<div class="btn-row" style="margin:0">' +
+      '<button class="btn small ghost" onclick="addAllFromMeals()">Zutaten zur Einkaufsliste</button>' +
+      '<button class="btn small primary" onclick="showRecipeModal()">+ Eigenes Rezept</button></div></div>' +
+      '<p class="desc" style="margin-bottom:14px">Trage deine eigenen Gerichte ein – oder übernimm eine Idee in deinen Plan.</p>' +
+      (state.recipes.length ?
+        '<div class="overline">Deine Rezepte</div><div class="grid-3" style="margin-bottom:20px">' +
+        state.recipes.map(r =>
+          '<div class="item-card"><h4 style="font-size:16px">' + esc(r.name) + '</h4>' +
+          '<div class="desc">' + (r.ing.length ? esc(r.ing.join(" · ")) : "Ohne Zutatenliste") + '</div>' +
+          '<div class="btn-row" style="justify-content:center;margin-top:10px">' +
+          '<button class="btn small ghost" onclick="showMealPicker(\'recipe:' + r.id + '\')">Einplanen</button>' +
+          '<button class="btn small gold" onclick="addIngredientsToShopping(\'recipe:' + r.id + '\')">Zutaten</button>' +
+          '<button class="btn small danger" onclick="deleteRecipe(\'' + r.id + '\')">Löschen</button>' +
+          '</div></div>'
+        ).join("") + '</div>' : "") +
+      '<div class="overline">Ideen zum Reinschieben</div>' +
+      '<div class="grid-3">' +
+      MEAL_IDEAS.map((idea, idx) =>
+        '<div class="item-card"><h4 style="font-size:16px">' + esc(idea.name) + '</h4>' +
+        '<div class="desc">' + idea.ing.join(" · ") + '</div>' +
+        '<div class="btn-row" style="justify-content:center;margin-top:10px">' +
+        '<button class="btn small ghost" onclick="showMealPicker(\'idea:' + idx + '\')">Einplanen</button>' +
+        '<button class="btn small gold" onclick="addIngredientsToShopping(\'idea:' + idx + '\')">Zutaten</button>' +
+        '</div></div>'
+      ).join("") +
+      '</div>' +
+    '</div></div>';
+}
+function mealInfo(val) {
+  if (!val) return null;
+  if (val.indexOf("idea:") === 0) {
+    const i = MEAL_IDEAS[parseInt(val.slice(5))];
+    return i ? { name: i.name, ing: i.ing } : null;
+  }
+  if (val.indexOf("recipe:") === 0) {
+    const r = state.recipes.find(x => x.id === val.slice(7));
+    return r ? { name: r.name, ing: r.ing || [] } : null;
+  }
+  return { name: val, ing: [] };
+}
+function mealSlot(ds, key, label, val) {
+  const info = mealInfo(val);
+  const disp = info ? info.name : "";
+  return '<div class="check-row" style="cursor:pointer" onclick="showMealModal(\'' + ds + '\',\'' + key + '\')">' +
+    '<div class="cr-mid"><div class="cr-meta">' + label + '</div>' +
+    '<div class="cr-title"' + (disp ? "" : ' style="color:var(--text-dim);font-weight:400"') + '>' + (disp ? esc(disp) : "– offen –") + '</div></div>' +
+    '<div class="cr-right"><span class="icon-btn">✎</span></div></div>';
+}
+function showMealModal(ds, key) {
+  const m = state.meals[ds] || {};
+  const cur = m[key] || "";
+  const info = mealInfo(cur);
+  const curText = info ? info.name : "";
+  const label = { f: "Frühstück", m: "Mittagessen", a: "Abendessen" }[key];
+  showModal(
+    '<h3>' + label + '</h3><p class="m-sub">' + fmtDate(ds) + '</p>' +
+    '<div class="form-row one"><div class="field"><label>Was gibt es?</label>' +
+    '<input class="input" id="mealText" value="' + esc(curText) + '" placeholder="z. B. Ofengemüse mit Feta"></div></div>' +
+    '<div class="btn-row"><button class="btn gold" onclick="randomMeal(\'' + ds + '\',\'' + key + '\')">✦ Zufällige Idee</button>' +
+    '<button class="btn ghost" onclick="clearMeal(\'' + ds + '\',\'' + key + '\')">Weglassen</button></div>' +
+    '<hr class="hr">' +
+    '<div class="btn-row"><button class="btn primary" onclick="saveMeal(\'' + ds + '\',\'' + key + '\')">Speichern</button>' +
+    '<button class="btn ghost" onclick="closeModal()">Abbrechen</button></div>'
+  );
+}
+function saveMeal(ds, key) {
+  const v = (document.getElementById("mealText").value || "").trim();
+  state.meals[ds] = state.meals[ds] || {};
+  state.meals[ds][key] = v;
+  saveState(); closeModal();
+  if (v) addXp(2, "Mahlzeit geplant", 0);
+  refresh();
+}
+function clearMeal(ds, key) {
+  if (state.meals[ds]) delete state.meals[ds][key];
+  saveState(); closeModal(); refresh();
+}
+function randomMeal(ds, key) {
+  const pool = MEAL_IDEAS.map((_, i) => "idea:" + i).concat(state.recipes.map(r => "recipe:" + r.id));
+  const ref = pool.length ? pool[Math.floor(Math.random() * pool.length)] : null;
+  state.meals[ds] = state.meals[ds] || {};
+  state.meals[ds][key] = ref || "";
+  saveState(); closeModal();
+  if (ref) addXp(2, (mealInfo(ref) || {}).name + " eingeplant", 0);
+  refresh();
+}
+function showMealPicker(ref) {
+  const info = mealInfo(ref);
+  const ws = weekStart(mealWeekOffset);
+  showModal(
+    '<h3>' + esc(info ? info.name : "Gericht") + '</h3><p class="m-sub">Wohin soll das Gericht?</p>' +
+    DAYS.map((d, i) => {
+      const ds = addDaysStr(ws, i);
+      return '<div class="check-row" style="cursor:pointer" onclick="assignMeal(\'' + ref + '\',\'' + ds + '\')">' +
+        '<div class="cr-mid"><div class="cr-title">' + DAY_LABEL[d] + '</div><div class="cr-meta">' + fmtDate(ds) + '</div></div>' +
+        '<div class="cr-right"><span class="tag grey">Mittag</span></div></div>';
+    }).join("") +
+    '<div class="btn-row"><button class="btn ghost" onclick="closeModal()">Schließen</button></div>'
+  );
+}
+function assignMeal(ref, ds) {
+  state.meals[ds] = state.meals[ds] || {};
+  state.meals[ds].m = ref;
+  saveState(); closeModal();
+  addXp(2, ((mealInfo(ref) || {}).name || "Gericht") + " eingeplant", 0);
+  refresh();
+}
+function addIngredientsToShopping(ref) {
+  const info = mealInfo(ref);
+  if (!info || !info.ing.length) { showToast("Für dieses Gericht sind keine Zutaten hinterlegt"); return; }
+  let added = 0;
+  info.ing.forEach(n => {
+    if (!state.shopping.some(s => s.name.toLowerCase() === n.toLowerCase() && !s.done)) {
+      state.shopping.push({ id: uid(), name: n, cat: "Lebensmittel", qty: "", done: false });
+      added++;
+    }
+  });
+  saveState();
+  showToast(added ? added + " Zutaten auf der Liste" : "Alles schon auf der Liste");
+}
+
+/* ---- Eigene Rezepte ---- */
+function showRecipeModal() {
+  showModal(
+    '<h3>Eigenes Rezept</h3><p class="m-sub">Dein Gericht, deine Zutaten – es landet in deiner Sammlung.</p>' +
+    '<div class="form-row one"><div class="field"><label>Name des Gerichts</label><input class="input" id="rcName" placeholder="z. B. Omas Kartoffelsalat"></div></div>' +
+    '<div class="form-row one"><div class="field"><label>Zutaten (mit Komma trennen)</label>' +
+    '<textarea class="textarea" id="rcIng" rows="3" placeholder="Kartoffeln, Mayonnaise, Gurke, Zwiebeln"></textarea></div></div>' +
+    '<div class="btn-row"><button class="btn primary" onclick="saveRecipe()">Speichern</button>' +
+    '<button class="btn ghost" onclick="closeModal()">Abbrechen</button></div>'
+  );
+}
+function saveRecipe() {
+  const name = (document.getElementById("rcName").value || "").trim();
+  if (!name) { showToast("Bitte einen Namen eingeben"); return; }
+  const ing = (document.getElementById("rcIng").value || "").split(/[,\n]/).map(s => s.trim()).filter(Boolean);
+  state.recipes.push({ id: uid(), name, ing });
+  saveState(); closeModal();
+  addXp(5, name + " gespeichert", 0);
+  refresh();
+}
+function deleteRecipe(id) {
+  state.recipes = state.recipes.filter(r => r.id !== id);
+  Object.keys(state.meals).forEach(d => {
+    ["f", "m", "a"].forEach(k => {
+      if (state.meals[d] && state.meals[d][k] === "recipe:" + id) delete state.meals[d][k];
+    });
+  });
+  saveState(); refresh();
+}
+
+/* ---------------- Haushaltsgeld ---------------- */
+function renderBudget(main) {
+  const y = budgetCursor.getFullYear(), m = budgetCursor.getMonth();
+  const key = y + "-" + String(m + 1).padStart(2, "0");
+  const monthExp = state.expenses.filter(e => e.date.startsWith(key));
+  const spent = monthExp.reduce((s, e) => s + e.amount, 0);
+  const limit = state.budgetLimit || 0;
+  const rest = limit - spent;
+  const pct = limit ? Math.min(100, Math.round(spent / limit * 100)) : 0;
+  const byCat = BUDGET_CATS.map(c => ({ ...c, sum: monthExp.filter(e => e.cat === c.id).reduce((s, e) => s + e.amount, 0) })).filter(c => c.sum > 0);
+
+  main.innerHTML =
+    '<div class="topbar"><div>' +
+      '<div class="overline">' + MONTHS[m] + ' ' + y + '</div><h2>Haushaltsgeld</h2>' +
+      '<p class="sub">Überblick statt Bauchgefühl – so bleibt am Monatsende noch etwas übrig.</p>' +
+    '</div>' +
+    '<div class="btn-row" style="margin:0">' +
+      '<button class="btn ghost" onclick="budgetMove(-1)">‹</button>' +
+      '<button class="btn ghost" onclick="budgetMove(1)">›</button>' +
+      '<button class="btn gold" onclick="showBudgetModal()">Budget ändern</button>' +
+      '<button class="btn primary" onclick="showExpenseModal()">+ Ausgabe</button>' +
+    '</div></div>' +
+
+    '<div class="stats-row">' +
+      '<div class="stat"><div class="k">Budget</div><div class="v">' + limit.toFixed(0) + ' <small>€</small></div></div>' +
+      '<div class="stat"><div class="k">Ausgegeben</div><div class="v">' + spent.toFixed(2) + ' <small>€</small></div></div>' +
+      '<div class="stat"><div class="k">Verfügbar</div><div class="v" style="color:' + (rest < 0 ? "var(--red)" : "var(--green)") + '">' + rest.toFixed(2) + ' <small>€</small></div></div>' +
+      '<div class="stat"><div class="k">Genutzt</div><div class="v">' + pct + ' <small>%</small></div><div class="bar" style="margin-top:8px"><i style="width:' + pct + '%"></i></div></div>' +
+    '</div>' +
+
+    '<div class="section grid-2">' +
+      '<div class="card">' +
+        '<div class="section-head"><h3>Nach Kategorie</h3></div>' +
+        (byCat.length ? byCat.map(c => {
+          const cp = limit ? Math.round(c.sum / limit * 100) : 0;
+          return '<div class="cat-bar-wrap"><div class="cat-bar-top"><span>' + esc(c.name) + '</span><b>' + c.sum.toFixed(2) + ' €</b></div>' +
+            '<div class="bar"><i style="width:' + cp + '%;background:' + c.color + '"></i></div></div>';
+        }).join("") : '<div class="empty">Noch keine Ausgaben in diesem Monat.</div>') +
+      '</div>' +
+      '<div class="card">' +
+        '<div class="section-head"><h3>Ausgaben</h3><span class="tag grey">' + monthExp.length + ' Einträge</span></div>' +
+        (monthExp.length ? monthExp.slice().reverse().map(e =>
+          '<div class="check-row"><div class="cr-mid"><div class="cr-title">' + esc(e.name) + '</div>' +
+          '<div class="cr-meta">' + fmtDate(e.date) + ' · ' + esc((BUDGET_CATS.find(c => c.id === e.cat) || {}).name || e.cat) + '</div></div>' +
+          '<div class="cr-right"><b style="font-family:var(--serif);font-size:17px">' + e.amount.toFixed(2) + ' €</b>' +
+          '<button class="icon-btn" onclick="deleteExpense(\'' + e.id + '\')">✕</button></div></div>'
+        ).join("") : '<div class="empty">Nichts ausgegeben – der Monat hat gut begonnen.</div>') +
+      '</div>' +
+    '</div>';
+}
+function budgetMove(dir) { budgetCursor = new Date(budgetCursor.getFullYear(), budgetCursor.getMonth() + dir, 1); refresh(); }
+function showBudgetModal() {
+  showModal(
+    '<h3>Monatsbudget</h3><p class="m-sub">Wie viel darf der Haushalt kosten?</p>' +
+    '<div class="form-row one"><div class="field"><label>Budget in Euro</label><input class="input" id="bgLimit" type="number" min="0" value="' + (state.budgetSet ? state.budgetLimit : "") + '" placeholder="z. B. 350"></div></div>' +
+    '<div class="btn-row"><button class="btn primary" onclick="saveBudgetLimit()">Speichern</button>' +
+    '<button class="btn ghost" onclick="closeModal()">Abbrechen</button></div>'
+  );
+}
+function saveBudgetLimit() {
+  state.budgetLimit = Math.max(0, parseFloat(document.getElementById("bgLimit").value) || 0);
+  state.budgetSet = true;
+  saveState(); closeModal(); showToast("Budget gespeichert"); refresh();
+}
+function showExpenseModal() {
+  showModal(
+    '<h3>Neue Ausgabe</h3><p class="m-sub">Kleine Beträge zählen – schreib sie auf.</p>' +
+    '<div class="form-row"><div class="field"><label>Bezeichnung</label><input class="input" id="exName" placeholder="z. B. Wocheneinkauf"></div>' +
+    '<div class="field"><label>Betrag (€)</label><input class="input" id="exAmount" type="number" min="0" step="0.01" placeholder="0,00"></div></div>' +
+    '<div class="form-row"><div class="field"><label>Kategorie</label><select class="select" id="exCat">' + BUDGET_CATS.map(c => '<option value="' + c.id + '">' + c.name + '</option>').join("") + '</select></div>' +
+    '<div class="field"><label>Datum</label><input class="input" id="exDate" type="date" value="' + todayStr() + '"></div></div>' +
+    '<div class="btn-row"><button class="btn primary" onclick="saveExpense()">Speichern</button>' +
+    '<button class="btn ghost" onclick="closeModal()">Abbrechen</button></div>'
+  );
+}
+function saveExpense() {
+  const name = (document.getElementById("exName").value || "").trim();
+  const amount = parseFloat(document.getElementById("exAmount").value);
+  if (!name || !(amount > 0)) { showToast("Bitte Name und Betrag eingeben"); return; }
+  state.expenses.push({ id: uid(), name, amount, cat: document.getElementById("exCat").value, date: document.getElementById("exDate").value || todayStr() });
+  budgetCursor = parseDate(document.getElementById("exDate").value || todayStr());
+  saveState(); closeModal();
+  addXp(4, "Ausgabe notiert", 0);
+  refresh();
+}
+function deleteExpense(id) {
+  state.expenses = state.expenses.filter(e => e.id !== id);
+  saveState(); refresh();
+}
+
+/* ---------------- Hauslexikon ---------------- */
+function renderLexikon(main) {
+  main.innerHTML =
+    '<div class="topbar"><div>' +
+      '<div class="overline">Wissen, das hilft</div><h2>Hauslexikon</h2>' +
+      '<p class="sub">Hausmittel, Regeln und Tricks – kurz erklärt, damit du sie sofort anwenden kannst.</p>' +
+    '</div></div>' +
+    '<div class="card" style="margin-bottom:18px">' +
+      '<input class="input" id="lexSearch" placeholder="Suchen … z. B. Kalk, Wäsche, Ordnung" oninput="filterLexikon()">' +
+    '</div>' +
+    '<div class="grid-3" id="lexGrid">' + LEXIKON.map(l =>
+      '<div class="card"><h3 style="font-size:19px">' + esc(l.t) + '</h3><p class="desc" style="margin-top:8px;line-height:1.7">' + esc(l.d) + '</p></div>'
+    ).join("") + '</div>';
+}
+function filterLexikon() {
+  const q = (document.getElementById("lexSearch").value || "").toLowerCase();
+  document.getElementById("lexGrid").innerHTML = LEXIKON
+    .filter(l => l.t.toLowerCase().includes(q) || l.d.toLowerCase().includes(q))
+    .map(l => '<div class="card"><h3 style="font-size:19px">' + esc(l.t) + '</h3><p class="desc" style="margin-top:8px;line-height:1.7">' + esc(l.d) + '</p></div>')
+    .join("") || '<div class="empty">Nichts gefunden – aber vielleicht hilft der Tipp zur Zonen-Routine.</div>';
+}
+/* ============================================================
+   B E G L E I T E R  ·  Das Kätzchen
+   ============================================================ */
+
+const CAT_TYPES = {
+  samtpfote:  { name: "Die Samtpfote",   sub: "Sanft & ausgeglichen",   text: "Dein Kätzchen ist zur ruhigen, warmen Persönlichkeit geworden – ein Samtkissen mit Schnurrmotor." },
+  glitzer:    { name: "Die Glitzerkatze", sub: "Sonnig & voller Energie", text: "Du hast dich so oft um dein Zuhause gekümmert – daraus ist eine strahlende Glitzerkatze geworden!" },
+  stubenweise:{ name: "Die Stubenweise",  sub: "Klug & gemütlich",       text: "Aus deinem Kätzchen wurde eine Stubenweise – weise, gemütlich und immer für eine gute Routine zu haben." }
+};
+
+const COMPANION_CHEERS = [
+  "Miau! Das sieht großartig aus!",
+  "Schnurr … mein Zuhause glänzt!",
+  "Du bist die Beste im Aufräumen!",
+  "Ein Häkchen mehr – ich feiere dich!",
+  "Heute wird es besonders schön hier!",
+  "Pfötchen hoch für dich!",
+  "Sauber, ordentlich, wunderbar!",
+  "Ich verstecke mich gleich im frischen Bett!"
+];
+
+const NAME_PARTS_A = ["Miez", "Samt", "Luna", "Perle", "Momo", "Keks", "Nala", "Cleo", "Mila", "Stern", "Mohn", "Schnee", "Rosé", "Puschel", "Nuss", "Molly", "Frieda", "Lotte", "Nori", "Bella"];
+const NAME_PARTS_B = ["pfote", "schnurr", "miez", "chen", "herz", "bärchen", "stern", "wolke", "flaum", "kissen", "blüte", "mond", "träpfchen", "nase"];
+const AVATAR_SYMBOLS = ["✿", "❀", "✦", "☾", "🍓", "🕊", "🌷", "🎀", "☕", "🤍", "🫧", "✨"];
+const GENDERS = ["♀ Weiblich", "♂ Männlich", "✦ Ohne Angabe"];
+
+/* ---- SVG-Katzen ---- */
+function catSvg(type, size) {
+  size = size || 220;
+  const col = {
+    samtpfote:   { body: "#f6ece2", belly: "#fdf7f0", ear: "#f0c3c6", nose: "#d99aa2", line: "#c9a995" },
+    glitzer:     { body: "#f3cdd2", belly: "#fbe7e8", ear: "#e7a3ab", nose: "#c97f8b", line: "#c58b93" },
+    stubenweise: { body: "#d9cddd", belly: "#ece4ef", ear: "#d8b3cf", nose: "#a97f9e", line: "#a98fae" },
+    baby:        { body: "#f7e7dd", belly: "#fdf4ec", ear: "#f2c3c6", nose: "#d99aa2", line: "#c9a995" }
+  }[type] || { body: "#f6ece2", belly: "#fdf7f0", ear: "#f0c3c6", nose: "#d99aa2", line: "#c9a995" };
+  const glasses = type === "stubenweise"
+    ? '<circle cx="82" cy="92" r="13" fill="none" stroke="#a97f9e" stroke-width="3"/><circle cx="118" cy="92" r="13" fill="none" stroke="#a97f9e" stroke-width="3"/><path d="M95 92h10M69 90l-12-5M131 90l12-5" stroke="#a97f9e" stroke-width="3" fill="none"/>'
+    : "";
+  const sparkle = type === "glitzer"
+    ? '<path d="M42 58l2.2 5 5 2.2-5 2.2-2.2 5-2.2-5-5-2.2 5-2.2z" fill="#c9a66b"/><path d="M160 66l1.8 4 4 1.8-4 1.8-1.8 4-1.8-4-4-1.8 4-1.8z" fill="#c9a66b"/><circle cx="150" cy="40" r="3" fill="#ecdcb6"/>'
+    : "";
+  return '<svg width="' + size + '" height="' + size + '" viewBox="0 0 200 200">' +
+    '<ellipse cx="100" cy="182" rx="62" ry="12" fill="rgba(190,150,150,.16)"/>' +
+    '<path d="M152 158 C182 150 184 116 162 106 C176 128 168 142 148 146 Z" fill="' + col.body + '" stroke="' + col.line + '" stroke-width="2"/>' +
+    '<ellipse cx="100" cy="148" rx="54" ry="44" fill="' + col.body + '" stroke="' + col.line + '" stroke-width="2"/>' +
+    '<ellipse cx="100" cy="156" rx="32" ry="30" fill="' + col.belly + '"/>' +
+    '<ellipse cx="72" cy="180" rx="18" ry="10" fill="' + col.body + '" stroke="' + col.line + '" stroke-width="2"/>' +
+    '<ellipse cx="128" cy="180" rx="18" ry="10" fill="' + col.body + '" stroke="' + col.line + '" stroke-width="2"/>' +
+    '<path d="M62 52 L70 20 L92 40 Z" fill="' + col.body + '" stroke="' + col.line + '" stroke-width="2"/>' +
+    '<path d="M138 52 L130 20 L108 40 Z" fill="' + col.body + '" stroke="' + col.line + '" stroke-width="2"/>' +
+    '<path d="M68 46 L73 28 L85 40 Z" fill="' + col.ear + '"/>' +
+    '<path d="M132 46 L127 28 L115 40 Z" fill="' + col.ear + '"/>' +
+    '<circle cx="100" cy="88" r="46" fill="' + col.body + '" stroke="' + col.line + '" stroke-width="2"/>' +
+    '<ellipse cx="82" cy="92" rx="6.5" ry="8.5" fill="#4b3a3d"/><ellipse cx="118" cy="92" rx="6.5" ry="8.5" fill="#4b3a3d"/>' +
+    '<circle cx="84" cy="89" r="2.4" fill="#fff"/><circle cx="120" cy="89" r="2.4" fill="#fff"/>' +
+    '<path d="M96 106 L104 106 L100 111 Z" fill="' + col.nose + '"/>' +
+    '<path d="M100 111 C98 116 92 116 90 113 M100 111 C102 116 108 116 110 113" stroke="' + col.nose + '" stroke-width="2.2" fill="none" stroke-linecap="round"/>' +
+    '<path d="M62 100 L38 95 M62 106 L38 108 M138 100 L162 95 M138 106 L162 108" stroke="' + col.line + '" stroke-width="2" stroke-linecap="round"/>' +
+    '<circle cx="68" cy="106" r="7" fill="rgba(228,167,172,.4)"/><circle cx="132" cy="106" r="7" fill="rgba(228,167,172,.4)"/>' +
+    glasses + sparkle +
+    '</svg>';
+}
+
+function basketSvg(size) {
+  size = size || 220;
+  return '<svg width="' + size + '" height="' + size + '" viewBox="0 0 200 200">' +
+    '<ellipse cx="100" cy="184" rx="70" ry="12" fill="rgba(190,150,150,.16)"/>' +
+    '<path d="M40 118 C40 100 160 100 160 118 L150 172 C148 182 52 182 50 172 Z" fill="#e8c8a8" stroke="#c9a66b" stroke-width="2.5"/>' +
+    '<path d="M52 128 C80 138 120 138 148 128" stroke="#c9a66b" stroke-width="2" fill="none"/>' +
+    '<path d="M56 146 C82 154 118 154 144 146" stroke="#c9a66b" stroke-width="2" fill="none"/>' +
+    '<ellipse cx="100" cy="112" rx="62" ry="18" fill="#f6e3d2" stroke="#c9a66b" stroke-width="2.5"/>' +
+    '<ellipse cx="100" cy="108" rx="48" ry="12" fill="#fdf3f1"/>' +
+    '<path d="M100 88 C92 74 68 78 70 94 C72 106 92 112 100 118 C108 112 128 106 130 94 C132 78 108 74 100 88 Z" fill="#e4a7ac" opacity=".85"/>' +
+    '<path d="M100 62l2.6 6 6 2.6-6 2.6-2.6 6-2.6-6-6-2.6 6-2.6z" fill="#c9a66b"/>' +
+    '<path d="M60 74l1.8 4 4 1.8-4 1.8-1.8 4-1.8-4-4-1.8 4-1.8z" fill="#e4a7ac"/>' +
+    '<path d="M142 76l1.8 4 4 1.8-4 1.8-1.8 4-1.8-4-4-1.8 4-1.8z" fill="#e4a7ac"/>' +
+    '</svg>';
+}
+
+/* ---- Entwicklung ---- */
+function learnedDaysInWeek() {
+  const start = state.hatchDate || todayStr();
+  return state.activeDays.filter(d => dayDiff(start, d) >= -1 && dayDiff(start, d) <= 7).length;
+}
+function checkCompanion() {
+  if (!state.introSeen) return;
+  if (state.stage === 1 && (state.streak || 0) >= 3) {
+    state.stage = 2;
+    state.hatchDate = todayStr();
+    saveState();
+    showHatchSequence();
+  } else if (state.stage === 2 && state.hatchDate && dayDiff(state.hatchDate, todayStr()) >= 7) {
+    const learned = learnedDaysInWeek();
+    state.catType = learned >= 6 ? "glitzer" : learned >= 4 ? "stubenweise" : "samtpfote";
+    state.stage = 3;
+    saveState();
+    showEvolutionModal();
+  }
+}
+function buddyKey() { return state.stage >= 3 && state.catType ? state.catType : state.stage >= 2 ? "baby" : "basket"; }
+function companionFigure(size) {
+  if (state.stage < 2) return basketSvg(size);
+  return catSvg(buddyKey(), size);
+}
+
+/* ---- Widget ---- */
+const COMPANION_SAYINGS = [
+  "Miau … wie wäre es mit einer kleinen Routine?",
+  "Ich habe aufgeräumt! … Also, moralisch unterstützt.",
+  "Ein gemachtes Bett ist wie ein Freundschaftsbeweis.",
+  "Hast du schon an die Einkaufsliste gedacht?",
+  "Ich halte dir die Pfötchen – du hältst den Plan!",
+  "Schnurr … heute riecht es nach Waschmittel und Glück."
+];
+function syncCompanion() {
+  const fig = document.getElementById("cwFig");
+  if (fig) fig.innerHTML = companionFigure(118);
+}
+function companionSay(msg) {
+  const bubble = document.getElementById("cwBubble");
+  if (!bubble) return;
+  bubble.textContent = msg;
+  bubble.style.opacity = 1;
+  clearTimeout(companionSay._t);
+  companionSay._t = setTimeout(() => {
+    if (document.getElementById("cwBubble")) document.getElementById("cwBubble").textContent = "Miau!";
+  }, 5200);
+}
+function toggleCompanion() {
+  state.companionHidden = !state.companionHidden;
+  saveState();
+  const w = document.getElementById("companionWidget");
+  if (w) w.style.display = state.companionHidden ? "none" : "flex";
+}
+function initCompanion() {
+  let w = document.getElementById("companionWidget");
+  if (w) w.remove();
+  w = document.createElement("div");
+  w.id = "companionWidget";
+  w.innerHTML =
+    '<div class="cw-bubble" id="cwBubble">Miau! Schön, dass du da bist.</div>' +
+    '<div class="cw-fig" id="cwFig" ondblclick="showBuddyDetails()">' + companionFigure(118) + '</div>';
+  document.body.appendChild(w);
+  if (state.companionHidden) w.style.display = "none";
+  if (state.companionPos) {
+    w.style.left = state.companionPos.x + "px";
+    w.style.top = state.companionPos.y + "px";
+    w.style.right = "auto";
+    w.style.bottom = "auto";
+  }
+
+  let drag = null;
+  const start = e => {
+    const p = e.touches ? e.touches[0] : e;
+    const rect = w.getBoundingClientRect();
+    drag = { dx: p.clientX - rect.left, dy: p.clientY - rect.top, moved: false };
+  };
+  const move = e => {
+    if (!drag) return;
+    const p = e.touches ? e.touches[0] : e;
+    drag.moved = true;
+    w.style.left = Math.max(8, Math.min(window.innerWidth - 130, p.clientX - drag.dx)) + "px";
+    w.style.top = Math.max(8, Math.min(window.innerHeight - 160, p.clientY - drag.dy)) + "px";
+    w.style.right = "auto";
+    w.style.bottom = "auto";
+  };
+  const end = () => {
+    if (drag && drag.moved) {
+      state.companionPos = { x: parseInt(w.style.left), y: parseInt(w.style.top) };
+      saveState();
+    }
+    drag = null;
+  };
+  w.addEventListener("mousedown", start);
+  window.addEventListener("mousemove", move);
+  window.addEventListener("mouseup", end);
+  w.addEventListener("touchstart", start, { passive: true });
+  window.addEventListener("touchmove", move, { passive: true });
+  window.addEventListener("touchend", end);
+
+  if (!initCompanion._t) {
+    initCompanion._t = setInterval(() => {
+      if (Math.random() < .35 && !state.companionHidden) companionSay(randomOf(COMPANION_SAYINGS));
+    }, 26000);
+  }
+}
+
+function buddyGroup() {
+  const stageTxt = state.stage >= 3 ? (CAT_TYPES[state.catType] || {}).name || "Erwachsen"
+    : state.stage === 2 ? "Kleines Kätzchen" : "Ein Körbchen voller Vorfreude";
+  const openTasks = dueTasksToday().filter(t => !isTaskDoneToday(t.id)).length;
+  return '<div class="card" style="text-align:center;background:linear-gradient(150deg,#fff 0%,var(--panel-2) 60%,#f9e6e2 100%)">' +
+    '<div class="overline">Dein Begleiter</div>' +
+    '<div style="margin:6px auto 4px;cursor:pointer" onclick="showBuddyDetails()">' + companionFigure(190) + '</div>' +
+    '<h3>' + esc(state.catName || "Dein Kätzchen") + '</h3>' +
+    '<p class="desc">' + stageTxt + (state.catGender ? " · " + esc(state.catGender) : "") + '</p>' +
+    '<div class="stats-row" style="grid-template-columns:1fr 1fr;margin-top:14px">' +
+      '<div class="stat" style="padding:12px"><div class="k">Serie</div><div class="v" style="font-size:24px">' + (state.streak || 0) + '</div></div>' +
+      '<div class="stat" style="padding:12px"><div class="k">Heute offen</div><div class="v" style="font-size:24px">' + openTasks + '</div></div>' +
+    '</div>' +
+    '<div class="btn-row" style="justify-content:center">' +
+      '<button class="btn small gold" onclick="navigate(\'shop\')">Boutique besuchen</button>' +
+      '<button class="btn small ghost" onclick="showEvolutionGuide()">Entwicklung</button>' +
+      '<button class="btn small ghost" onclick="showBuddyDetails()">Mehr über mich</button>' +
+    '</div>' +
+  '</div>';
+}
+
+function showEvolutionGuide() {
+  const mini = (svg, title, sub, how) =>
+    '<div class="card" style="padding:16px;text-align:center">' +
+    '<div style="background:linear-gradient(140deg,var(--panel-2),#fbefe4);border-radius:12px;padding:6px;display:grid;place-items:center">' + svg + '</div>' +
+    '<h4 style="font-family:var(--serif);font-size:19px;margin-top:10px">' + title + '</h4>' +
+    (sub ? '<div class="tag" style="margin:6px 0">' + sub + '</div>' : "") +
+    '<p class="desc" style="min-height:0;margin-top:6px">' + how + '</p></div>';
+  showModal(
+    '<h3>Die Entwicklung deines Kätzchens</h3>' +
+    '<p class="m-sub">Vom Körbchen zur erwachsenen Katze – welche es wird, entscheidest du mit deinem Fleiß.</p>' +
+    '<div class="overline">Der Weg</div>' +
+    '<div class="grid-3" style="gap:12px">' +
+      mini(basketSvg(140), "Das Körbchen", "Stadium 1", "Ab dem ersten Start da. Es öffnet sich, sobald du <b>3 Tage in Folge</b> etwas für deinen Plan erledigst.") +
+      mini(catSvg("baby", 140), "Das Babykätzchen", "Stadium 2 · ab Tag 3", "Cremefarben mit rosa Öhrchen, neugierig und schnuffelig. Ab jetzt bekommt es einen <b>Namen</b> und begleitet dich.") +
+      '<div class="card" style="padding:16px;text-align:center;background:var(--panel-2)">' +
+        '<h4 style="font-family:var(--serif);font-size:19px;margin-top:10px">Und eine Woche später?</h4>' +
+        '<p class="desc" style="min-height:0;margin-top:8px">Wird das Baby erwachsen – als eine von drei Katzen. Wie viele der 7 Tage du aktiv warst, entscheidet:</p>' +
+        '<div class="btn-row" style="justify-content:center"><span class="tag gold">6+ Tage · 4–5 Tage · 0–3 Tage</span></div>' +
+      '</div>' +
+    '</div>' +
+    '<div class="overline" style="margin-top:20px">Die drei erwachsenen Katzen</div>' +
+    '<div class="grid-3" style="gap:12px">' +
+      mini(catSvg("glitzer", 140), "Die Glitzerkatze", "6+ aktive Tage", "<b>Die Seltenste:</b> rosé mit goldenen Funkeln – sonnig und voller Energie.") +
+      mini(catSvg("stubenweise", 140), "Die Stubenweise", "4–5 aktive Tage", "Fliedergrau mit kluger Lesebrille – gemütlich, gesellig und immer organisiert.") +
+      mini(catSvg("samtpfote", 140), "Die Samtpfote", "0–3 aktive Tage", "Cremeweiß und sanft – die ausgeglichene Begleiterin für ruhige Tage.") +
+    '</div>' +
+    '<div class="btn-row" style="justify-content:center;margin-top:20px">' +
+      '<button class="btn gold" onclick="closeModal();navigate(\'shop\')">Kätzchen in der Boutique verwöhnen</button>' +
+      '<button class="btn ghost" onclick="closeModal()">Schließen</button>' +
+    '</div>', true
+  );
+}
+
+function showBuddyDetails() {
+  const stageTxt = state.stage >= 3 ? (CAT_TYPES[state.catType] || {}).name || "Erwachsenes Kätzchen"
+    : state.stage === 2 ? "Kleines Kätzchen" : "Ein Körbchen voller Vorfreude";
+  showModal(
+    '<div style="text-align:center">' + companionFigure(200) + '</div>' +
+    '<h3 style="text-align:center">' + esc(state.catName || "Dein Kätzchen") + '</h3>' +
+    '<p class="m-sub" style="text-align:center">' + stageTxt + (state.catGender ? " · " + esc(state.catGender) : "") + '</p>' +
+    '<div class="stats-row" style="grid-template-columns:1fr 1fr">' +
+      '<div class="stat"><div class="k">Serie</div><div class="v">' + (state.streak || 0) + ' <small>Tage</small></div></div>' +
+      '<div class="stat"><div class="k">Aktive Tage</div><div class="v">' + state.activeDays.length + '</div></div>' +
+    '</div>' +
+    '<div class="btn-row" style="justify-content:center">' +
+      '<button class="btn gold" onclick="closeModal();navigate(\'shop\')">Zur Boutique</button>' +
+      '<button class="btn ghost" onclick="showEvolutionGuide()">Entwicklung</button>' +
+      '<button class="btn ghost" onclick="showNameCat()">Umbenennen</button>' +
+      (state.stage >= 2 ? '<button class="btn danger" onclick="resetCat()">Neu beginnen</button>' : "") +
+    '</div>'
+  );
+}
+function resetCat() {
+  state.stage = 1; state.hatchDate = null; state.catType = null; state.catName = null; state.catGender = null;
+  state.equipped = {}; state.ownedItems = [];
+  saveState(); closeModal(); initCompanion();
+  showToast("Ein neues Körbchen wartet auf dich");
+  refresh();
+}
+
+/* ---- Intro & Magie ---- */
+function showIntro() {
+  const ov = document.createElement("div");
+  ov.className = "intro-overlay";
+  ov.id = "introOverlay";
+  ov.innerHTML =
+    '<div class="magic-inner" style="max-width:640px">' +
+      '<div class="sparkle-row">✦ · ✿ · ✦</div>' +
+      '<div class="magic-glow">' + basketSvg(200) + '</div>' +
+      '<div class="overline">Bevor es losgeht</div>' +
+      '<h2 style="font-size:32px;margin:8px 0 4px">Was ist das Körbchen?</h2>' +
+      '<p style="color:var(--text-dim);max-width:520px;margin:0 auto 20px">Kurz erklärt – in drei Sätzen zu deinem neuen Mitbewohner:</p>' +
+      '<div class="grid-3" style="text-align:left;gap:12px">' +
+        '<div class="card" style="padding:16px"><div class="overline">Wer wohnt hier?</div>' +
+        '<p class="desc" style="min-height:0">In deinem Planer lebt ein Kätzchen. Damit es sich wohlfühlt, braucht es ein Zuhause – und das ist dieses Körbchen.</p></div>' +
+        '<div class="card" style="padding:16px"><div class="overline">Wie wächst es?</div>' +
+        '<p class="desc" style="min-height:0">Jede abgehakte Aufgabe und jeder aktive Tag füllen das Körbchen mit Leben. Nach 3 Tagen Serie krabbelt das Kätzchen heraus, nach einer Woche wird es erwachsen.</p></div>' +
+        '<div class="card" style="padding:16px"><div class="overline">Was bringt es dir?</div>' +
+        '<p class="desc" style="min-height:0">Dein Plan sagt, was wann fällig ist – abhaken genügt, die nächste Fälligkeit entsteht von selbst. Dafür gibt es XP, Sterne und ein zufriedenes Kätzchen.</p></div>' +
+      '</div>' +
+      '<div class="btn-row" style="justify-content:center;margin-top:22px">' +
+        '<button class="btn primary" onclick="closeIntro()">Alles klar – Körbchen öffnen</button>' +
+      '</div>' +
+    '</div>';
+  document.body.appendChild(ov);
+}
+function closeIntro() {
+  const ov = document.getElementById("introOverlay");
+  if (ov) ov.remove();
+  state.introSeen = true;
+  state.stage = 1;
+  saveState();
+  showMagicSequence();
+}
+function showMagicSequence() {
+  const ov = document.createElement("div");
+  ov.className = "magic-overlay";
+  ov.id = "magicOverlay";
+  ov.innerHTML =
+    '<div class="magic-inner">' +
+      '<div class="magic-glow">' +
+        '<span class="spark" style="left:12%;top:20%">✦</span>' +
+        '<span class="spark" style="right:14%;top:26%;animation-delay:.5s">✿</span>' +
+        '<span class="spark" style="left:22%;bottom:12%;animation-delay:.9s">✧</span>' +
+        '<span class="spark" style="right:20%;bottom:16%;animation-delay:1.3s">✦</span>' +
+        basketSvg(240) +
+      '</div>' +
+      '<h2 style="font-size:30px">Es ist ein Körbchen!</h2>' +
+      '<p style="color:var(--text-dim);max-width:440px;margin:10px auto">Innen liegt etwas Warmes und Schnurrendes. Sobald du drei Tage in Folge an deinem Zuhause gearbeitet hast, krabbelt es heraus …</p>' +
+    '</div>';
+  document.body.appendChild(ov);
+  setTimeout(() => {
+    ov.style.transition = "opacity .8s ease";
+    ov.style.opacity = 0;
+    setTimeout(() => { ov.remove(); if (!state.catName) showNameCat(); }, 850);
+  }, 3400);
+}
+function showHatchSequence() {
+  const ov = document.createElement("div");
+  ov.className = "magic-overlay";
+  ov.id = "magicOverlay";
+  ov.innerHTML =
+    '<div class="magic-inner">' +
+      '<div class="magic-glow">' +
+        '<span class="spark" style="left:18%;top:18%">✦</span>' +
+        '<span class="spark" style="right:18%;top:22%;animation-delay:.6s">✿</span>' +
+        catSvg("baby", 240) +
+      '</div>' +
+      '<h2 style="font-size:32px">Miau! Es ist geschlüpft!</h2>' +
+      '<p style="color:var(--text-dim);max-width:440px;margin:10px auto">Nach drei Tagen voller kleiner Erfolge ist dein Kätzchen da. Pflege es gut – in einer Woche wird es erwachsen.</p>' +
+      '<button class="btn primary" onclick="closeMagic()">Willkommen, kleines!</button>' +
+    '</div>';
+  document.body.appendChild(ov);
+}
+function showEvolutionModal() {
+  const t = CAT_TYPES[state.catType] || CAT_TYPES.samtpfote;
+  const ov = document.createElement("div");
+  ov.className = "magic-overlay";
+  ov.id = "magicOverlay";
+  ov.innerHTML =
+    '<div class="magic-inner">' +
+      '<div class="magic-glow">' +
+        '<span class="spark" style="left:16%;top:16%">✦</span>' +
+        '<span class="spark" style="right:16%;top:20%;animation-delay:.6s">✧</span>' +
+        catSvg(state.catType, 240) +
+      '</div>' +
+      '<div class="overline">Eine neue Persönlichkeit</div>' +
+      '<h2 style="font-size:32px">' + t.name + '</h2>' +
+      '<p class="tag gold" style="margin:8px auto">' + t.sub + '</p>' +
+      '<p style="color:var(--text-dim);max-width:460px;margin:12px auto">' + t.text + '</p>' +
+      '<button class="btn primary" onclick="closeMagic()">Wir sind bereit!</button>' +
+    '</div>';
+  document.body.appendChild(ov);
+}
+function closeMagic() {
+  const ov = document.getElementById("magicOverlay");
+  if (ov) ov.remove();
+  initCompanion();
+  if (!state.catName) showNameCat();
+  refresh();
+}
+function showNameCat() {
+  showModal(
+    '<h3>Wie soll dein Kätzchen heißen?</h3><p class="m-sub">Der Name bleibt für immer – nimm dir eine Sekunde.</p>' +
+    '<div class="form-row one"><div class="field"><label>Name</label>' +
+    '<div style="display:flex;gap:10px"><input class="input" id="catName" maxlength="20" value="' + esc(state.catName || (randomOf(NAME_PARTS_A) + randomOf(NAME_PARTS_B))) + '">' +
+    '<button class="btn ghost" onclick="rerollCatName()">✦</button></div></div></div>' +
+    '<div class="field"><label>Geschlecht (optional)</label><div class="avatar-pick" id="catGenderPick">' +
+    GENDERS.map(g => '<button class="avatar-opt' + (state.catGender === g ? " sel" : "") + '" style="width:auto;padding:0 16px;border-radius:99px;font-size:11px;letter-spacing:.1em" onclick="pickCatGender(this,\'' + g + '\')">' + g + '</button>').join("") +
+    '</div></div>' +
+    '<div class="btn-row"><button class="btn primary" onclick="saveCatName()">Name speichern</button></div>'
+  );
+}
+function rerollCatName() {
+  document.getElementById("catName").value = randomOf(NAME_PARTS_A) + randomOf(NAME_PARTS_B);
+}
+function pickCatGender(el, g) {
+  state.catGender = g;
+  document.querySelectorAll("#catGenderPick .avatar-opt").forEach(b => b.classList.remove("sel"));
+  el.classList.add("sel");
+}
+function saveCatName() {
+  const n = (document.getElementById("catName").value || "").trim() || "Miezchen";
+  state.catName = n;
+  saveState(); closeModal();
+  showToast(n + " heißt dein Kätzchen von nun an");
+  initCompanion();
+  refresh();
+}
+/* ============================================================
+   B O U T I Q U E  ·  Shop fürs Kätzchen
+   ============================================================ */
+
+const SHOP_ITEM_CATS = [
+  { id: "alle" }, { id: "kopf" }, { id: "gesicht" }, { id: "hals" }, { id: "essen" }
+];
+
+const ART_SCHLEIFE = '<path d="M100 88 C88 66 52 66 52 88 C52 110 88 106 100 88 C112 106 148 110 148 88 C148 66 112 66 100 88 Z" fill="#e4a7ac" stroke="#c97f8b" stroke-width="3"/><circle cx="100" cy="88" r="11" fill="#f7e2e1" stroke="#c97f8b" stroke-width="3"/>';
+const ART_KRONE = '<path d="M52 104 L52 56 L78 82 L100 42 L122 82 L148 56 L148 104 Z" fill="#ecdcb6" stroke="#c9a66b" stroke-width="3"/><rect x="50" y="102" width="100" height="14" rx="5" fill="#e7d3a9" stroke="#c9a66b" stroke-width="3"/><circle cx="100" cy="42" r="6" fill="#e4a7ac"/>';
+const ART_BLUMEN = '<circle cx="62" cy="86" r="13" fill="#f7e2e1" stroke="#e4a7ac" stroke-width="3"/><circle cx="62" cy="86" r="5" fill="#c9a66b"/><circle cx="100" cy="76" r="15" fill="#fbeceb" stroke="#e4a7ac" stroke-width="3"/><circle cx="100" cy="76" r="6" fill="#c9a66b"/><circle cx="138" cy="86" r="13" fill="#f7e2e1" stroke="#e4a7ac" stroke-width="3"/><circle cx="138" cy="86" r="5" fill="#c9a66b"/><path d="M50 96 C80 112 120 112 150 96" stroke="#9db89a" stroke-width="5" fill="none" stroke-linecap="round"/>';
+const ART_BRILLE = '<circle cx="76" cy="88" r="22" fill="rgba(75,58,61,.82)" stroke="#4b3a3d" stroke-width="3"/><circle cx="124" cy="88" r="22" fill="rgba(75,58,61,.82)" stroke="#4b3a3d" stroke-width="3"/><path d="M98 86 C102 80 106 80 110 86" stroke="#4b3a3d" stroke-width="4" fill="none"/><path d="M54 82 L34 74 M146 82 L166 74" stroke="#4b3a3d" stroke-width="4" stroke-linecap="round"/><path d="M62 78 C68 72 76 70 82 72" stroke="rgba(255,255,255,.5)" stroke-width="3" fill="none"/>';
+const ART_LESEBRILLE = '<circle cx="76" cy="90" r="20" fill="rgba(236,220,182,.35)" stroke="#c9a66b" stroke-width="4"/><circle cx="124" cy="90" r="20" fill="rgba(236,220,182,.35)" stroke="#c9a66b" stroke-width="4"/><path d="M96 88 C102 82 106 82 112 88" stroke="#c9a66b" stroke-width="4" fill="none"/><path d="M56 84 L36 78 M144 84 L164 78" stroke="#c9a66b" stroke-width="4" stroke-linecap="round"/>';
+const ART_HALSBAND = '<path d="M52 82 C64 112 136 112 148 82" stroke="#e4a7ac" stroke-width="12" fill="none" stroke-linecap="round"/><path d="M52 82 C64 112 136 112 148 82" stroke="#c97f8b" stroke-width="3" fill="none" stroke-dasharray="6 5"/><circle cx="100" cy="108" r="12" fill="#ecdcb6" stroke="#c9a66b" stroke-width="3"/><path d="M100 104v8M96 108h8" stroke="#c9a66b" stroke-width="2.5"/>';
+const ART_PERLEN = '<path d="M56 80 C70 112 130 112 144 80" stroke="none" fill="none"/><g fill="#fdf7f0" stroke="#cdb9d4" stroke-width="2">' + [0,1,2,3,4,5,6].map(i => '<circle cx="' + (62 + i * 13) + '" cy="' + (86 + Math.sin(i / 6 * Math.PI) * 22) + '" r="7"/>').join("") + '</g>';
+const ART_SCHAL = '<path d="M50 84 C64 118 136 118 150 84 L160 92 C146 128 54 128 40 92 Z" fill="#f3cdd2" stroke="#e4a7ac" stroke-width="3"/><path d="M132 116 L142 158 L156 152 L150 112 Z" fill="#f3cdd2" stroke="#e4a7ac" stroke-width="3"/><path d="M138 152 l-4 10 M146 154 l-3 10 M154 150 l-3 10" stroke="#e4a7ac" stroke-width="3" stroke-linecap="round"/><path d="M52 92 C70 116 130 116 148 92" stroke="#fff" stroke-width="3" fill="none" opacity=".6"/>';
+const ART_MILCH = '<ellipse cx="100" cy="118" rx="52" ry="12" fill="#e9d8c6" stroke="#c9a66b" stroke-width="3"/><path d="M56 104 C56 122 144 122 144 104 L138 74 C136 62 64 62 62 74 Z" fill="#fdf7f0" stroke="#c9a66b" stroke-width="3"/><ellipse cx="100" cy="72" rx="38" ry="9" fill="#fff" stroke="#c9a66b" stroke-width="3"/><path d="M82 68 C88 60 112 60 118 68" stroke="#e4a7ac" stroke-width="3" fill="none"/>';
+const ART_FISCH = '<path d="M52 92 C68 64 118 58 148 80 C160 88 164 98 156 106 C132 130 84 130 60 110 C52 104 48 98 52 92 Z" fill="#d9c9bb" stroke="#b09a86" stroke-width="3"/><path d="M52 92 L28 70 L32 104 L28 124 L56 110 Z" fill="#c9b3a1" stroke="#b09a86" stroke-width="3"/><circle cx="132" cy="88" r="5" fill="#4b3a3d"/><path d="M96 74 C102 88 102 104 96 118" stroke="rgba(255,255,255,.5)" stroke-width="3" fill="none"/>';
+const ART_SNACK = '<rect x="62" y="62" width="76" height="66" rx="12" fill="#f7e2e1" stroke="#e4a7ac" stroke-width="3"/><path d="M62 82 H138" stroke="#e4a7ac" stroke-width="3"/><circle cx="100" cy="104" r="13" fill="#e4a7ac"/><path d="M100 98 c-3-5-10-2-8 4 c1 4 8 8 8 8 s7-4 8-8 c2-6-5-9-8-4z" fill="#fff"/><rect x="88" y="52" width="24" height="12" rx="4" fill="#ecdcb6" stroke="#c9a66b" stroke-width="2.5"/>';
+const ART_KEKS = '<path d="M100 132 C72 112 52 96 52 78 C52 62 66 52 80 54 C90 56 97 62 100 68 C103 62 110 56 120 54 C134 52 148 62 148 78 C148 96 128 112 100 132 Z" fill="#e8c8a8" stroke="#c9a66b" stroke-width="3"/><circle cx="86" cy="82" r="5" fill="#b0453c"/><circle cx="112" cy="76" r="5" fill="#b0453c"/><circle cx="102" cy="98" r="5" fill="#b0453c"/>';
+
+const SHOP_ITEMS = [
+  { id: "schleife",  name: "Rosé Schleife",            cat: "kopf",   slot: "kopf",   price: 6,  art: ART_SCHLEIFE, vb: "30 50 140 80",  place: [100, 44, 1],   desc: "Für jeden Tag ein bisschen Glamour." },
+  { id: "krone",     name: "Champagner Krönchen",      cat: "kopf",   slot: "kopf",   price: 14, art: ART_KRONE,    vb: "35 25 130 110", place: [100, 38, .95], desc: "Denn dein Kätzchen ist eh die Königin." },
+  { id: "blumen",    name: "Blumenkranz",              cat: "kopf",   slot: "kopf",   price: 9,  art: ART_BLUMEN,   vb: "35 50 130 80",  place: [100, 52, 1],   desc: "Frisch gepflückt aus dem Fensterkasten." },
+  { id: "brille",    name: "Sonnenbrille",             cat: "gesicht", slot: "gesicht", price: 7, art: ART_BRILLE,  vb: "25 55 150 70",  place: [100, 92, 1],   desc: "Für Spaziergänge am Sonntag." },
+  { id: "lesebrille",name: "Goldene Lesebrille",       cat: "gesicht", slot: "gesicht", price: 6, art: ART_LESEBRILLE, vb: "25 60 150 65", place: [100, 92, 1],  desc: "Kluge Blicke für die Stubenweise." },
+  { id: "halsband",  name: "Halsband mit Glöckchen",   cat: "hals",   slot: "hals",   price: 5,  art: ART_HALSBAND, vb: "35 60 130 80",  place: [100, 118, 1],  desc: "Man hört sie kommen – lieblich." },
+  { id: "perlen",    name: "Perlenkette",              cat: "hals",   slot: "hals",   price: 10, art: ART_PERLEN,   vb: "45 70 110 70",  place: [100, 124, 1],  desc: "Zeitlose Eleganz für samtene Abende." },
+  { id: "schal",     name: "Weicher Strickschal",      cat: "hals",   slot: "hals",   price: 8,  art: ART_SCHAL,    vb: "30 65 140 110", place: [100, 116, 1],  desc: "Warm, weich und rosa – was will man mehr." },
+  { id: "milch",     name: "Schale Milch",             cat: "essen",  price: 3,  food: true, art: ART_MILCH,  vb: "40 50 120 90", desc: "Eine Klassiker-Pause." },
+  { id: "fisch",     name: "Frischer Fisch",           cat: "essen",  price: 4,  food: true, art: ART_FISCH,  vb: "20 55 160 90", desc: "Beliebt bei allen Katzen dieser Welt." },
+  { id: "snack",     name: "Kätzchen-Snack",           cat: "essen",  price: 2,  food: true, art: ART_SNACK,  vb: "45 40 110 110", desc: "Kleine Belohnung für große Taten." },
+  { id: "keks",      name: "Herzkeks",                 cat: "essen",  price: 3,  food: true, art: ART_KEKS,   vb: "40 45 120 105", desc: "Süßer geht Nachmittags nicht." }
+];
+
+function buddyFigure(size) {
+  const key = buddyKey();
+  const inner = catSvg(key).replace(/^[\s\S]*?<svg[^>]*>/, "").replace(/<\/svg>\s*$/, "");
+  let behind = "", front = "";
+  (state.ownedItems || []).forEach(id => {
+    const it = SHOP_ITEMS.find(x => x.id === id);
+    if (!it || !it.place || state.equipped[it.slot] !== id) return;
+    const g = '<g transform="translate(' + it.place[0] + ',' + it.place[1] + ') scale(' + (it.place[2] || 1) + ') translate(-100,-100)">' + it.art + '</g>';
+    if (it.behind) behind += g; else front += g;
+  });
+  return '<svg width="' + (size || 220) + '" height="' + (size || 220) + '" viewBox="0 0 200 200">' + behind + inner + front + '</svg>';
+}
+function companionFigure(size) {
+  if (state.stage < 2) return basketSvg(size);
+  return buddyFigure(size);
+}
+
+function itemCardHtml(item) {
+  const owned = state.ownedItems.includes(item.id);
+  const equipped = item.slot && state.equipped[item.slot] === item.id;
+  let btn = "";
+  if (item.food) {
+    btn = '<button class="btn small ' + (state.sterne >= item.price ? "primary" : "ghost") + '" onclick="buyFood(\'' + item.id + '\')"' + (state.sterne >= item.price ? "" : " disabled") + '>Füttern</button>';
+  } else if (!owned) {
+    btn = '<button class="btn small ' + (state.sterne >= item.price ? "primary" : "ghost") + '" onclick="buyItem(\'' + item.id + '\')"' + (state.sterne >= item.price ? "" : " disabled") + '>Kaufen</button>';
+  } else {
+    btn = '<button class="btn small ' + (equipped ? "gold" : "green") + '" onclick="toggleEquip(\'' + item.id + '\')">' + (equipped ? "Ausziehen" : "Anziehen") + '</button>';
+  }
+  return '<div class="item-card">' +
+    '<div class="item-art"><svg viewBox="' + item.vb + '">' + item.art + '</svg></div>' +
+    '<h4>' + esc(item.name) + '</h4>' +
+    '<div class="desc">' + esc(item.desc) + '</div>' +
+    '<div class="price">★ ' + item.price + '</div><br>' + btn +
+    '</div>';
+}
+
+function renderShop(main) {
+  const items = SHOP_ITEMS.filter(i => shopFilter === "alle" || i.cat === shopFilter);
+  main.innerHTML =
+    '<div class="topbar"><div>' +
+      '<div class="overline">Kleine Freuden</div><h2>Boutique</h2>' +
+      '<p class="sub">Deine Sterne verwandeln sich in Glanz – für dein Kätzchen und seine Lieblingsmomente.</p>' +
+    '</div>' +
+    '<div class="btn-row" style="margin:0">' +
+      '<span class="tag gold" style="font-size:13px;padding:9px 18px">★ ' + (state.sterne || 0) + ' Sterne</span>' +
+      '<button class="btn ghost" onclick="showBuddyDetails()">Mein Kätzchen</button>' +
+      '<button class="btn ghost" onclick="showEvolutionGuide()">Entwicklung</button>' +
+    '</div></div>' +
+
+    '<div class="shop-tabs">' +
+      SHOP_ITEM_CATS.map(c => '<div class="shop-tab' + (shopFilter === c.id ? " active" : "") + '" onclick="shopFilter=\'' + c.id + '\';refresh()">' + c.id + '</div>').join("") +
+    '</div>' +
+
+    '<div class="shop-grid">' + items.map(itemCardHtml).join("") + '</div>' +
+
+    '<div class="section"><div class="note"><span class="i">✦</span><span>Sterne verdienst du mit kleinen Erfolgen: erledigte Aufgaben, aktive Tage und abgeschlossene Einkäufe. Dein Kätzchen freut sich über jedes einzelne.</span></div></div>';
+}
+
+function buyItem(id) {
+  const it = SHOP_ITEMS.find(x => x.id === id);
+  if (!it || state.ownedItems.includes(id)) return;
+  if (state.sterne < it.price) { showToast("Noch nicht genug Sterne"); return; }
+  state.sterne -= it.price;
+  state.ownedItems.push(id);
+  if (it.slot) state.equipped[it.slot] = id;
+  saveState();
+  showToast(it.name + " gehört jetzt deinem Kätzchen", 0, -it.price);
+  initCompanion();
+  refresh();
+}
+function toggleEquip(id) {
+  const it = SHOP_ITEMS.find(x => x.id === id);
+  if (!it || !it.slot) return;
+  if (state.equipped[it.slot] === id) delete state.equipped[it.slot];
+  else state.equipped[it.slot] = id;
+  saveState();
+  initCompanion();
+  refresh();
+}
+function buyFood(id) {
+  const it = SHOP_ITEMS.find(x => x.id === id);
+  if (!it) return;
+  if (state.sterne < it.price) { showToast("Noch nicht genug Sterne"); return; }
+  state.sterne -= it.price;
+  saveState();
+  showEatingSequence(it);
+}
+function showEatingSequence(item) {
+  const ov = document.createElement("div");
+  ov.className = "eat-overlay";
+  ov.id = "magicOverlay";
+  ov.innerHTML =
+    '<div class="magic-inner">' +
+      '<div class="magic-glow">' +
+        '<div id="eatStage" style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:10px">' +
+          '<svg width="150" height="150" viewBox="' + item.vb + '">' + item.art + '</svg>' +
+          '<div class="cw-bubble" style="font-size:17px">Miau … lecker!</div>' +
+        '</div>' +
+      '</div>' +
+      '<p style="color:var(--text-dim)">' + esc(state.catName || "Dein Kätzchen") + ' genießt die ' + esc(item.name) + '.</p>' +
+    '</div>';
+  document.body.appendChild(ov);
+  setTimeout(() => {
+    const st = document.getElementById("eatStage");
+    if (st) st.innerHTML = companionFigure(220) + '<div class="cw-bubble" style="font-size:17px">Schnurr … danke dir!</div>';
+  }, 1400);
+  setTimeout(() => {
+    ov.style.transition = "opacity .7s ease";
+    ov.style.opacity = 0;
+    setTimeout(() => { ov.remove(); refresh(); }, 750);
+  }, 3200);
+}
+
+/* ============================================================
+   M O D A L S  ·  Einstellungen  ·  Sounds
+   ============================================================ */
+function showModal(html, wide) {
+  closeModal();
+  const ov = document.createElement("div");
+  ov.className = "modal-overlay";
+  ov.id = "modalOverlay";
+  ov.innerHTML = '<div class="modal-box' + (wide ? " wide" : "") + '"><button class="modal-close" onclick="closeModal()">✕</button>' + html + '</div>';
+  ov.addEventListener("click", e => { if (e.target === ov) closeModal(); });
+  document.body.appendChild(ov);
+}
+function closeModal() {
+  const ov = document.getElementById("modalOverlay");
+  if (ov) ov.remove();
+}
+
+function avatarHtml(size) {
+  size = size || 42;
+  return '<div style="width:' + size + 'px;height:' + size + 'px;border-radius:50%;background:var(--accent-soft);border:1px solid var(--border);display:grid;place-items:center;font-size:' + Math.round(size / 2.2) + 'px">' + (state.userAvatar || "✿") + '</div>';
+}
+function avatarPickerHtml() {
+  return '<div class="avatar-pick">' + AVATAR_SYMBOLS.map(s =>
+    '<div class="avatar-opt' + (state.userAvatar === s ? " sel" : "") + '" onclick="pickAvatar(this,\'' + s + '\')">' + s + '</div>'
+  ).join("") + '</div>';
+}
+function pickAvatar(el, s) {
+  state.userAvatar = s;
+  saveState();
+  document.querySelectorAll(".avatar-opt").forEach(b => b.classList.remove("sel"));
+  el.classList.add("sel");
+}
+function rerollName() {
+  const inp = document.getElementById("setUserName");
+  if (inp) inp.value = randomOf(NAME_PARTS_A) + " " + randomOf(NAME_PARTS_B);
+}
+
+function showSettings() {
+  showModal(
+    '<h3>Profil &amp; Einstellungen</h3><p class="m-sub">Dein Zuhause, deine Regeln.</p>' +
+    '<div style="display:flex;align-items:center;gap:16px;margin-bottom:18px">' +
+      avatarHtml(56) +
+      '<div style="flex:1"><div class="overline">Dein Name</div>' +
+      '<div style="display:flex;gap:10px"><input class="input" id="setUserName" value="' + esc(state.userName || "") + '" placeholder="Wie heißt du?" onchange="state.userName=this.value.trim()||null;saveState()">' +
+      '<button class="btn ghost" onclick="rerollName()">✦</button></div></div>' +
+    '</div>' +
+    '<div class="field"><label>Dein Symbol</label>' + avatarPickerHtml() + '</div>' +
+    '<hr class="hr">' +
+    '<div class="overline">Dein Kätzchen</div>' +
+    '<div class="check-row" style="cursor:pointer" onclick="closeModal();showNameCat()">' +
+      '<div class="cr-mid"><div class="cr-title">' + esc(state.catName || "Noch ohne Namen") + '</div>' +
+      '<div class="cr-meta">' + (state.catGender || "Geschlecht offen") + ' · Tippen zum Ändern</div></div>' +
+      '<div class="cr-right"><span class="icon-btn">✎</span></div></div>' +
+    '<div class="check-row" style="cursor:pointer" onclick="toggleCompanion()">' +
+      '<div class="cr-mid"><div class="cr-title">Begleiter anzeigen</div>' +
+      '<div class="cr-meta">Das Kätzchen schwebt durch deinen Bildschirm</div></div>' +
+      '<div class="cr-right"><span class="tag ' + (state.companionHidden ? "grey" : "green") + '">' + (state.companionHidden ? "aus" : "an") + '</span></div></div>' +
+    '<hr class="hr">' +
+    '<div class="overline">Klang</div>' +
+    '<div class="check-row" style="cursor:pointer" onclick="toggleSound()">' +
+      '<div class="cr-mid"><div class="cr-title">Hintergrundmusik</div><div class="cr-meta">Sanfte Klänge beim Planen</div></div>' +
+      '<div class="cr-right"><span class="tag ' + (state.soundOn ? "green" : "grey") + '">' + (state.soundOn ? "an" : "aus") + '</span></div></div>' +
+    '<div class="check-row" style="cursor:pointer" onclick="toggleClickSound()">' +
+      '<div class="cr-mid"><div class="cr-title">Klick-Sounds</div><div class="cr-meta">Kleines Feedback bei jedem Haken</div></div>' +
+      '<div class="cr-right"><span class="tag ' + (state.clickSound ? "green" : "grey") + '">' + (state.clickSound ? "an" : "aus") + '</span></div></div>' +
+    '<hr class="hr">' +
+    '<div class="check-row" style="cursor:pointer" onclick="askReset()">' +
+      '<div class="cr-mid"><div class="cr-title" style="color:var(--red)">Alles zurücksetzen</div>' +
+      '<div class="cr-meta">Beginnt komplett neu – mit leerem Plan und vollem Körbchen</div></div>' +
+      '<div class="cr-right"><span class="icon-btn">↺</span></div></div>'
+  );
+}
+function askReset() {
+  showModal(
+    '<h3>Wirklich alles zurücksetzen?</h3>' +
+    '<p class="m-sub">Dein Fortschritt, dein Kätzchen und deine Listen werden gelöscht. Das kann nicht rückgängig gemacht werden.</p>' +
+    '<div class="btn-row"><button class="btn danger" onclick="confirmReset()">Ja, zurücksetzen</button>' +
+    '<button class="btn ghost" onclick="closeModal()">Nein, weitermachen</button></div>'
+  );
+}
+function confirmReset() {
+  try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
+  location.reload();
+}
+
+/* ---- Sounds ---- */
+let actx = null, musicTimer = null, musicStep = 0;
+function ac() {
+  if (!actx) { try { actx = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { return null; } }
+  return actx;
+}
+function playClick() {
+  if (!state.clickSound) return;
+  const c = ac();
+  if (!c) return;
+  const o = c.createOscillator(), g = c.createGain();
+  o.type = "sine";
+  o.frequency.value = 880;
+  g.gain.setValueAtTime(0.0001, c.currentTime);
+  g.gain.exponentialRampToValueAtTime(0.06, c.currentTime + 0.01);
+  g.gain.exponentialRampToValueAtTime(0.0001, c.currentTime + 0.09);
+  o.connect(g).connect(c.destination);
+  o.start(); o.stop(c.currentTime + 0.1);
+}
+function playTone(freq, t, dur, vol) {
+  const c = ac();
+  if (!c) return;
+  const o = c.createOscillator(), g = c.createGain();
+  o.type = "sine";
+  o.frequency.value = freq;
+  g.gain.setValueAtTime(0.0001, c.currentTime + t);
+  g.gain.exponentialRampToValueAtTime(vol || 0.05, c.currentTime + t + 0.06);
+  g.gain.exponentialRampToValueAtTime(0.0001, c.currentTime + t + dur);
+  o.connect(g).connect(c.destination);
+  o.start(c.currentTime + t);
+  o.stop(c.currentTime + t + dur + 0.05);
+}
+const MOTIF = [261.6, 329.6, 392.0, 523.3, 392.0, 329.6, 293.7, 349.2, 440.0, 587.3, 440.0, 349.2];
+let bgAudio = null, fadeTimer = null;
+function fadeBg(to, secs) {
+  if (!bgAudio) return;
+  clearInterval(fadeTimer);
+  const from = bgAudio.volume, steps = Math.max(1, Math.round(secs * 20));
+  let i = 0;
+  fadeTimer = setInterval(() => {
+    i++;
+    bgAudio.volume = Math.max(0, Math.min(1, from + (to - from) * (i / steps)));
+    if (i >= steps) clearInterval(fadeTimer);
+  }, 50);
+}
+function startMusic() {
+  if (!state.soundOn) return;
+  if (!bgAudio) {
+    try {
+      bgAudio = new Audio("media/musik.mp3");
+      bgAudio.loop = true;
+      bgAudio.volume = 0;
+    } catch (e) { bgAudio = null; }
+  }
+  if (bgAudio) {
+    const p = bgAudio.play();
+    if (p && p.catch) p.catch(() => startMelody());
+    fadeBg(0.32, 2.2);
+    return;
+  }
+  startMelody();
+}
+function startMelody() {
+  const c = ac();
+  if (!c || musicTimer) return;
+  const bar = () => {
+    if (!state.soundOn) return;
+    MOTIF.forEach((f, i) => playTone(f, i * 1.1, 1.6, 0.028));
+  };
+  bar();
+  musicTimer = setInterval(bar, MOTIF.length * 1100 + 900);
+}
+function stopMusic() {
+  if (bgAudio) {
+    fadeBg(0, 0.8);
+    setTimeout(() => { if (bgAudio && !state.soundOn) bgAudio.pause(); }, 850);
+  }
+  if (musicTimer) { clearInterval(musicTimer); musicTimer = null; }
+}
+function toggleSound() {
+  state.soundOn = !state.soundOn;
+  saveState();
+  if (state.soundOn) startMusic(); else stopMusic();
+  showSettings();
+}
+function toggleClickSound() {
+  state.clickSound = !state.clickSound;
+  saveState();
+  showSettings();
+}
+
+/* ---- Ambiente ---- */
+function initAmbient() {
+  const syms = ["✦", "✿", "✧", "❀", "·"];
+  for (let i = 0; i < 16; i++) {
+    const s = document.createElement("span");
+    s.className = "amb";
+    s.textContent = randomOf(syms);
+    s.style.left = Math.random() * 100 + "vw";
+    s.style.top = (100 + Math.random() * 30) + "vh";
+    s.style.fontSize = 9 + Math.random() * 13 + "px";
+    s.style.color = randomOf(["#e4a7ac", "#c9a66b", "#cdb9d4", "#d08a87"]);
+    s.style.setProperty("--o", .25 + Math.random() * .35);
+    s.style.animationDuration = 26 + Math.random() * 34 + "s";
+    s.style.animationDelay = -Math.random() * 40 + "s";
+    document.body.appendChild(s);
+  }
+}
+
+/* ============================================================
+   S T A R T
+   ============================================================ */
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll(".nav-item").forEach(n => {
+    n.addEventListener("click", () => {
+      navigate(n.dataset.view);
+      document.getElementById("sidebar").classList.remove("open");
+    });
+  });
+
+  initAmbient();
+  initCompanion();
+  updateSidebar();
+  navigate("dashboard", { silent: true });
+
+  if (!state.introSeen) showIntro();
+  checkCompanion();
+
+  const gate = () => {
+    if (state.soundOn) startMusic();
+    window.removeEventListener("pointerdown", gate);
+  };
+  window.addEventListener("pointerdown", gate);
+
+  window.addEventListener("keydown", e => {
+    if (e.key === "Escape") closeModal();
+  });
+});
+</script>
+</body>
+</html>
+

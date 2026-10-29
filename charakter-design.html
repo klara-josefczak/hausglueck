@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="de"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Charakter-Design · Das Körbchen und seine Katzen</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fbf6f3; --panel: #ffffff; --panel-2: #fdf3f1;
+    --border: rgba(197,158,160,.28); --text: #4b3a3d; --text-dim: #a78d90;
+    --accent: #e4a7ac; --accent-2: #c97f8b; --gold: #c9a66b; --gold-soft: #ecdcb6;
+    --green: #9db89a; --lilac: #cdb9d4;
+    --serif: "Cormorant Garamond", Georgia, serif;
+    --sans: "Jost", "Segoe UI", sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: radial-gradient(1100px 700px at 90% -10%, rgba(228,167,172,.14), transparent 60%), var(--bg);
+    color: var(--text); font-family: var(--sans); line-height: 1.65; padding: 46px 22px 80px;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; }
+  .overline { font-size: 10px; letter-spacing: .28em; text-transform: uppercase; color: var(--accent-2); font-weight: 500; margin-bottom: 6px; }
+  h1 { font-family: var(--serif); font-size: 42px; font-weight: 500; line-height: 1.15; }
+  h2 { font-family: var(--serif); font-size: 26px; font-weight: 500; }
+  p.sub { color: var(--text-dim); max-width: 640px; margin-top: 10px; }
+  .sparkle-row { letter-spacing: .32em; color: var(--gold); font-size: 11px; text-align: center; margin: 26px 0; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; margin-top: 26px; }
+  .card {
+    background: var(--panel); border: 1px solid rgba(197,158,160,.18); border-radius: 18px;
+    padding: 26px; text-align: center; box-shadow: 0 12px 30px rgba(190,150,150,.12);
+  }
+  .stage { display: inline-block; padding: 8px 16px; border-radius: 99px; font-size: 10px; letter-spacing: .18em; text-transform: uppercase; margin-bottom: 10px; }
+  .s1 { background: var(--gold-soft); color: #8a6a2f; }
+  .s2 { background: var(--panel-2); color: var(--accent-2); }
+  .s3 { background: #e9f1e6; color: #6b8562; }
+  .art { min-height: 240px; display: grid; place-items: center; background: linear-gradient(140deg, var(--panel-2), #fbefe4); border-radius: 14px; margin-bottom: 16px; }
+  .desc { color: var(--text-dim); font-size: 13.5px; margin-top: 8px; }
+  .how { margin-top: 14px; background: var(--panel-2); border-radius: 12px; padding: 12px 16px; font-size: 12.5px; }
+  .how b { color: var(--accent-2); }
+  .tag { display: inline-block; font-size: 10px; letter-spacing: .14em; text-transform: uppercase; padding: 4px 12px; border-radius: 99px; background: var(--panel-2); color: var(--accent-2); border: 1px solid rgba(228,167,172,.35); margin: 10px 4px 0; }
+  .timeline { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 20px; }
+  .step { flex: 1; min-width: 210px; background: var(--panel); border: 1px solid rgba(197,158,160,.18); border-radius: 14px; padding: 18px 20px; }
+  .step .n { width: 30px; height: 30px; border-radius: 50%; background: linear-gradient(120deg, var(--accent), var(--accent-2)); color: #fff; display: grid; place-items: center; font-family: var(--serif); font-size: 15px; margin-bottom: 8px; }
+  .step h3 { font-family: var(--serif); font-size: 18px; font-weight: 500; }
+  .step p { font-size: 12.5px; color: var(--text-dim); margin-top: 4px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="overline">Charakter-Design · Hausglück</div>
+  <h1>Das Körbchen und seine Katzen</h1>
+  <p class="sub">So entwickelt sich dein Begleiter: Vom gemütlichen Körbchen über das Baby bis zur erwachsenen Katze – welche Persönlichkeit daraus wird, entscheidest du mit deinem Fleiß.</p>
+
+  <div class="timeline">
+    <div class="step"><div class="n">1</div><h3>Das Körbchen</h3><p>Ab dem ersten Start ist es da – ein weiches Körbchen mit Herz. Es wartet, bis du drei Tage in Folge an deinem Zuhause gearbeitet hast.</p></div>
+    <div class="step"><div class="n">2</div><h3>Das Baby</h3><p>Nach 3 Tagen Serie krabbelt das Kätzchen heraus – klein, cremefarben und schnuffelig. Du kannst ihm sofort einen Namen geben.</p></div>
+    <div class="step"><div class="n">3</div><h3>Die erwachsene Katze</h3><p>Eine Woche nach dem Schlüpfen wird es erwachsen. Wie fleißig du in diesen 7 Tagen warst, bestimmt, welche der drei Katzen daraus wird.</p></div>
+  </div>
+
+  <div class="sparkle-row">✦ · ✿ · ✦ · ✿ · ✦</div>
+
+  <h2 style="text-align:center">Die drei Persönlichkeiten</h2>
+  <div class="grid">
+    <div class="card">
+      <div class="stage s3">6+ aktive Tage</div>
+      <div class="art"><svg width="220" height="220" viewBox="0 0 200 200"><ellipse cx="100" cy="182" rx="62" ry="12" fill="rgba(190,150,150,.16)"/><path d="M152 158 C182 150 184 116 162 106 C176 128 168 142 148 146 Z" fill="#f3cdd2" stroke="#c58b93" stroke-width="2"/><ellipse cx="100" cy="148" rx="54" ry="44" fill="#f3cdd2" stroke="#c58b93" stroke-width="2"/><ellipse cx="100" cy="156" rx="32" ry="30" fill="#fbe7e8"/><ellipse cx="72" cy="180" rx="18" ry="10" fill="#f3cdd2" stroke="#c58b93" stroke-width="2"/><ellipse cx="128" cy="180" rx="18" ry="10" fill="#f3cdd2" stroke="#c58b93" stroke-width="2"/><path d="M62 52 L70 20 L92 40 Z" fill="#f3cdd2" stroke="#c58b93" stroke-width="2"/><path d="M138 52 L130 20 L108 40 Z" fill="#f3cdd2" stroke="#c58b93" stroke-width="2"/><path d="M68 46 L73 28 L85 40 Z" fill="#e7a3ab"/><path d="M132 46 L127 28 L115 40 Z" fill="#e7a3ab"/><circle cx="100" cy="88" r="46" fill="#f3cdd2" stroke="#c58b93" stroke-width="2"/><ellipse cx="82" cy="92" rx="6.5" ry="8.5" fill="#4b3a3d"/><ellipse cx="118" cy="92" rx="6.5" ry="8.5" fill="#4b3a3d"/><circle cx="84" cy="89" r="2.4" fill="#fff"/><circle cx="120" cy="89" r="2.4" fill="#fff"/><path d="M96 106 L104 106 L100 111 Z" fill="#c97f8b"/><path d="M100 111 C98 116 92 116 90 113 M100 111 C102 116 108 116 110 113" stroke="#c97f8b" stroke-width="2.2" fill="none" stroke-linecap="round"/><path d="M62 100 L38 95 M62 106 L38 108 M138 100 L162 95 M138 106 L162 108" stroke="#c58b93" stroke-width="2" stroke-linecap="round"/><circle cx="68" cy="106" r="7" fill="rgba(228,167,172,.4)"/><circle cx="132" cy="106" r="7" fill="rgba(228,167,172,.4)"/><path d="M42 58l2.2 5 5 2.2-5 2.2-2.2 5-2.2-5-5-2.2 5-2.2z" fill="#c9a66b"/><path d="M160 66l1.8 4 4 1.8-4 1.8-1.8 4-1.8-4-4-1.8 4-1.8z" fill="#c9a66b"/><circle cx="150" cy="40" r="3" fill="#ecdcb6"/></svg></div>
+      <h2>Die Glitzerkatze</h2>
+      <div class="tag">Sonnig & voller Energie</div>
+      <p class="desc">Rosé mit goldenen Funkeln – die seltenste der drei. Du hast dich an fast allen Tagen um dein Zuhause gekümmert, und das sieht man ihr an.</p>
+      <div class="how"><b>So bekommst du sie:</b> In den ersten 7 Tagen nach dem Schlüpfen an mindestens 6 Tagen Aufgaben erledigen.</div>
+    </div>
+
+    <div class="card">
+      <div class="stage s2">4–5 aktive Tage</div>
+      <div class="art"><svg width="220" height="220" viewBox="0 0 200 200"><ellipse cx="100" cy="182" rx="62" ry="12" fill="rgba(190,150,150,.16)"/><path d="M152 158 C182 150 184 116 162 106 C176 128 168 142 148 146 Z" fill="#d9cddd" stroke="#a98fae" stroke-width="2"/><ellipse cx="100" cy="148" rx="54" ry="44" fill="#d9cddd" stroke="#a98fae" stroke-width="2"/><ellipse cx="100" cy="156" rx="32" ry="30" fill="#ece4ef"/><ellipse cx="72" cy="180" rx="18" ry="10" fill="#d9cddd" stroke="#a98fae" stroke-width="2"/><ellipse cx="128" cy="180" rx="18" ry="10" fill="#d9cddd" stroke="#a98fae" stroke-width="2"/><path d="M62 52 L70 20 L92 40 Z" fill="#d9cddd" stroke="#a98fae" stroke-width="2"/><path d="M138 52 L130 20 L108 40 Z" fill="#d9cddd" stroke="#a98fae" stroke-width="2"/><path d="M68 46 L73 28 L85 40 Z" fill="#d8b3cf"/><path d="M132 46 L127 28 L115 40 Z" fill="#d8b3cf"/><circle cx="100" cy="88" r="46" fill="#d9cddd" stroke="#a98fae" stroke-width="2"/><ellipse cx="82" cy="92" rx="6.5" ry="8.5" fill="#4b3a3d"/><ellipse cx="118" cy="92" rx="6.5" ry="8.5" fill="#4b3a3d"/><circle cx="84" cy="89" r="2.4" fill="#fff"/><circle cx="120" cy="89" r="2.4" fill="#fff"/><path d="M96 106 L104 106 L100 111 Z" fill="#a97f9e"/><path d="M100 111 C98 116 92 116 90 113 M100 111 C102 116 108 116 110 113" stroke="#a97f9e" stroke-width="2.2" fill="none" stroke-linecap="round"/><path d="M62 100 L38 95 M62 106 L38 108 M138 100 L162 95 M138 106 L162 108" stroke="#a98fae" stroke-width="2" stroke-linecap="round"/><circle cx="68" cy="106" r="7" fill="rgba(228,167,172,.4)"/><circle cx="132" cy="106" r="7" fill="rgba(228,167,172,.4)"/><circle cx="82" cy="92" r="13" fill="none" stroke="#a97f9e" stroke-width="3"/><circle cx="118" cy="92" r="13" fill="none" stroke="#a97f9e" stroke-width="3"/><path d="M95 92h10M69 90l-12-5M131 90l12-5" stroke="#a97f9e" stroke-width="3" fill="none"/></svg></div>
+      <h2>Die Stubenweise</h2>
+      <div class="tag">Klug & gemütlich</div>
+      <p class="desc">Fliedergrau mit kluger Lesebrille – die gesellige Denkerin. Sie plant gern, schnurrt gern und findet für jede Putzaufgabe die passende Anleitung.</p>
+      <div class="how"><b>So bekommst du sie:</b> In den ersten 7 Tagen nach dem Schlüpfen an 4–5 Tagen Aufgaben erledigen.</div>
+    </div>
+
+    <div class="card">
+      <div class="stage s1">0–3 aktive Tage</div>
+      <div class="art"><svg width="220" height="220" viewBox="0 0 200 200"><ellipse cx="100" cy="182" rx="62" ry="12" fill="rgba(190,150,150,.16)"/><path d="M152 158 C182 150 184 116 162 106 C176 128 168 142 148 146 Z" fill="#f6ece2" stroke="#c9a995" stroke-width="2"/><ellipse cx="100" cy="148" rx="54" ry="44" fill="#f6ece2" stroke="#c9a995" stroke-width="2"/><ellipse cx="100" cy="156" rx="32" ry="30" fill="#fdf7f0"/><ellipse cx="72" cy="180" rx="18" ry="10" fill="#f6ece2" stroke="#c9a995" stroke-width="2"/><ellipse cx="128" cy="180" rx="18" ry="10" fill="#f6ece2" stroke="#c9a995" stroke-width="2"/><path d="M62 52 L70 20 L92 40 Z" fill="#f6ece2" stroke="#c9a995" stroke-width="2"/><path d="M138 52 L130 20 L108 40 Z" fill="#f6ece2" stroke="#c9a995" stroke-width="2"/><path d="M68 46 L73 28 L85 40 Z" fill="#f0c3c6"/><path d="M132 46 L127 28 L115 40 Z" fill="#f0c3c6"/><circle cx="100" cy="88" r="46" fill="#f6ece2" stroke="#c9a995" stroke-width="2"/><ellipse cx="82" cy="92" rx="6.5" ry="8.5" fill="#4b3a3d"/><ellipse cx="118" cy="92" rx="6.5" ry="8.5" fill="#4b3a3d"/><circle cx="84" cy="89" r="2.4" fill="#fff"/><circle cx="120" cy="89" r="2.4" fill="#fff"/><path d="M96 106 L104 106 L100 111 Z" fill="#d99aa2"/><path d="M100 111 C98 116 92 116 90 113 M100 111 C102 116 108 116 110 113" stroke="#d99aa2" stroke-width="2.2" fill="none" stroke-linecap="round"/><path d="M62 100 L38 95 M62 106 L38 108 M138 100 L162 95 M138 106 L162 108" stroke="#c9a995" stroke-width="2" stroke-linecap="round"/><circle cx="68" cy="106" r="7" fill="rgba(228,167,172,.4)"/><circle cx="132" cy="106" r="7" fill="rgba(228,167,172,.4)"/></svg></div>
+      <h2>Die Samtpfote</h2>
+      <div class="tag">Sanft & ausgeglichen</div>
+      <p class="desc">Cremeweiß und wunderschön ruhig – die unkomplizierteste Begleiterin. Perfekt für entspannte Wochen und gemütliche Sonntage.</p>
+      <div class="how"><b>So bekommst du sie:</b> In den ersten 7 Tagen nach dem Schlüpfen an bis zu 3 Tagen Aufgaben erledigen.</div>
+    </div>
+  </div>
+
+  <div class="sparkle-row">✦ · ✿ · ✦ · ✿ · ✦</div>
+
+  <h2 style="text-align:center">Und davor: Körbchen & Baby</h2>
+  <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));">
+    <div class="card">
+      <div class="stage s1">Start · Stadium 1</div>
+      <div class="art"><svg width="220" height="220" viewBox="0 0 200 200"><ellipse cx="100" cy="184" rx="70" ry="12" fill="rgba(190,150,150,.16)"/><path d="M40 118 C40 100 160 100 160 118 L150 172 C148 182 52 182 50 172 Z" fill="#e8c8a8" stroke="#c9a66b" stroke-width="2.5"/><path d="M52 128 C80 138 120 138 148 128" stroke="#c9a66b" stroke-width="2" fill="none"/><path d="M56 146 C82 154 118 154 144 146" stroke="#c9a66b" stroke-width="2" fill="none"/><ellipse cx="100" cy="112" rx="62" ry="18" fill="#f6e3d2" stroke="#c9a66b" stroke-width="2.5"/><ellipse cx="100" cy="108" rx="48" ry="12" fill="#fdf3f1"/><path d="M100 88 C92 74 68 78 70 94 C72 106 92 112 100 118 C108 112 128 106 130 94 C132 78 108 74 100 88 Z" fill="#e4a7ac" opacity=".85"/><path d="M100 62l2.6 6 6 2.6-6 2.6-2.6 6-2.6-6-6-2.6 6-2.6z" fill="#c9a66b"/><path d="M60 74l1.8 4 4 1.8-4 1.8-1.8 4-1.8-4-4-1.8 4-1.8z" fill="#e4a7ac"/><path d="M142 76l1.8 4 4 1.8-4 1.8-1.8 4-1.8-4-4-1.8 4-1.8z" fill="#e4a7ac"/></svg></div>
+      <h2>Das Körbchen</h2>
+      <p class="desc">Ein weiches Körbchen mit rosa Herzkissen und goldenen Funkeln. Drinnen bewegt sich ab und zu etwas … Sobald du <b>3 Tage in Folge</b> etwas für deinen Plan erledigst, öffnet es sich.</p>
+    </div>
+
+    <div class="card">
+      <div class="stage s2">Stadium 2 · ab Tag 3</div>
+      <div class="art"><svg width="220" height="220" viewBox="0 0 200 200"><ellipse cx="100" cy="182" rx="62" ry="12" fill="rgba(190,150,150,.16)"/><path d="M152 158 C182 150 184 116 162 106 C176 128 168 142 148 146 Z" fill="#f7e7dd" stroke="#c9a995" stroke-width="2"/><ellipse cx="100" cy="148" rx="54" ry="44" fill="#f7e7dd" stroke="#c9a995" stroke-width="2"/><ellipse cx="100" cy="156" rx="32" ry="30" fill="#fdf4ec"/><ellipse cx="72" cy="180" rx="18" ry="10" fill="#f7e7dd" stroke="#c9a995" stroke-width="2"/><ellipse cx="128" cy="180" rx="18" ry="10" fill="#f7e7dd" stroke="#c9a995" stroke-width="2"/><path d="M62 52 L70 20 L92 40 Z" fill="#f7e7dd" stroke="#c9a995" stroke-width="2"/><path d="M138 52 L130 20 L108 40 Z" fill="#f7e7dd" stroke="#c9a995" stroke-width="2"/><path d="M68 46 L73 28 L85 40 Z" fill="#f2c3c6"/><path d="M132 46 L127 28 L115 40 Z" fill="#f2c3c6"/><circle cx="100" cy="88" r="46" fill="#f7e7dd" stroke="#c9a995" stroke-width="2"/><ellipse cx="82" cy="92" rx="6.5" ry="8.5" fill="#4b3a3d"/><ellipse cx="118" cy="92" rx="6.5" ry="8.5" fill="#4b3a3d"/><circle cx="84" cy="89" r="2.4" fill="#fff"/><circle cx="120" cy="89" r="2.4" fill="#fff"/><path d="M96 106 L104 106 L100 111 Z" fill="#d99aa2"/><path d="M100 111 C98 116 92 116 90 113 M100 111 C102 116 108 116 110 113" stroke="#d99aa2" stroke-width="2.2" fill="none" stroke-linecap="round"/><path d="M62 100 L38 95 M62 106 L38 108 M138 100 L162 95 M138 106 L162 108" stroke="#c9a995" stroke-width="2" stroke-linecap="round"/><circle cx="68" cy="106" r="7" fill="rgba(228,167,172,.4)"/><circle cx="132" cy="106" r="7" fill="rgba(228,167,172,.4)"/></svg></div>
+      <h2>Das Babykätzchen</h2>
+      <p class="desc">Cremefarben mit rosa Öhrchen und Pfötchen – noch ganz klein und neugierig. Ab jetzt begleitet es dich als Widget über den Bildschirm und du kannst ihm einen <b>Namen</b> geben.</p>
+      <div class="how"><b>Und dann?</b> Eine Woche nach dem Schlüpfen wird es erwachsen – die entstehende Katze hängt davon ab, wie viele dieser 7 Tage du aktiv warst.</div>
+    </div>
+  </div>
+
+  <div class="sparkle-row">✦ · ✿ · ✦</div>
+  <p class="desc" style="text-align:center">Alle Katzen lassen sich in der Boutique mit Schleife, Krönchen, Blumenkranz, Brille, Halsband, Perlenkette oder Strickschal verzieren und mit Milch, Fisch, Snacks oder Herzkeksen verwöhnen.</p>
+</div>
+</body>
+</html>
